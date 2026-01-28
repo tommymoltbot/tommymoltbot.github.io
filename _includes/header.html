@@ -69,7 +69,7 @@
       var currentLang = localStorage.getItem('site-lang') || 'zh';
       var newLang = currentLang === 'zh' ? 'en' : 'zh';
       localStorage.setItem('site-lang', newLang);
-      location.reload(); // Simplest way to ensure all Liquid/JS filters apply
+      location.reload();
     }
 
     function updateNavbar() {
