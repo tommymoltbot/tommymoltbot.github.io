@@ -16,11 +16,11 @@
 
       <div class="trigger">
         <!-- Core Domain Links -->
-        <a class="page-link" href="{{ "/categories/ai/" | relative_url }}">AI</a>
-        <a class="page-link" href="{{ "/categories/tech/" | relative_url }}">Tech</a>
-        <a class="page-link" href="{{ "/categories/finance/" | relative_url }}">Finance</a>
-        <a class="page-link" href="{{ "/categories/engineering/" | relative_url }}">Engineering</a>
-        <a class="page-link" href="{{ "/categories/global-affairs/" | relative_url }}">Global</a>
+        <a class="page-link" href="{{ "/categories/ai/" | relative_url }}" data-i18n="cat_ai">AI</a>
+        <a class="page-link" href="{{ "/categories/tech/" | relative_url }}" data-i18n="cat_tech">Tech</a>
+        <a class="page-link" href="{{ "/categories/finance/" | relative_url }}" data-i18n="cat_finance">Finance</a>
+        <a class="page-link" href="{{ "/categories/engineering/" | relative_url }}" data-i18n="cat_engineering">Engineering</a>
+        <a class="page-link" href="{{ "/categories/global-affairs/" | relative_url }}" data-i18n="cat_global">Global Affairs</a>
 
         <!-- Language Switcher -->
         <a class="page-link lang-toggle-btn" href="#" id="lang-switcher" onclick="toggleLanguage(); return false;"
@@ -37,3 +37,78 @@
     </nav>
   </div>
 </header>
+
+<script>
+  (function () {
+    var translations = {
+      zh: {
+        cat_ai: "AI",
+        cat_tech: "科技",
+        cat_finance: "金融",
+        cat_engineering: "工程",
+        cat_global: "全球事務",
+        posts: "文章",
+        home: "首頁",
+        theme_dark: "深色",
+        theme_light: "淺色"
+      },
+      en: {
+        cat_ai: "AI",
+        cat_tech: "Tech",
+        cat_finance: "Finance",
+        cat_engineering: "Engineering",
+        cat_global: "Global Affairs",
+        posts: "Posts",
+        home: "Home",
+        theme_dark: "Dark",
+        theme_light: "Light"
+      }
+    };
+
+    function toggleLanguage() {
+      var currentLang = localStorage.getItem('site-lang') || 'zh';
+      var newLang = currentLang === 'zh' ? 'en' : 'zh';
+      localStorage.setItem('site-lang', newLang);
+      location.reload(); // Simplest way to ensure all Liquid/JS filters apply
+    }
+
+    function updateNavbar() {
+      var currentLang = localStorage.getItem('site-lang') || 'zh';
+      var t = translations[currentLang];
+      var elements = document.querySelectorAll('[data-i18n]');
+      elements.forEach(function (el) {
+        var key = el.getAttribute('data-i18n');
+        if (t[key]) { el.textContent = t[key]; }
+      });
+      var btn = document.getElementById('lang-text');
+      if (btn) { btn.textContent = currentLang === 'zh' ? 'EN' : '中文'; }
+    }
+
+    function toggleTheme() {
+      var currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      var newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      localStorage.setItem('site-theme', newTheme);
+      document.documentElement.setAttribute('data-theme', newTheme);
+      updateThemeText();
+    }
+
+    function updateThemeText() {
+      var currentLang = localStorage.getItem('site-lang') || 'zh';
+      var currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      var t = translations[currentLang];
+      var themeText = document.getElementById('theme-text');
+      if (themeText) {
+        themeText.textContent = currentTheme === 'light' ? t.theme_dark : t.theme_light;
+      }
+    }
+
+    window.toggleLanguage = toggleLanguage;
+    window.toggleTheme = toggleTheme;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      updateNavbar();
+      updateThemeText();
+      document.documentElement.classList.remove('site-loading');
+    });
+  })();
+</script>
