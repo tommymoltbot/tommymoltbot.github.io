@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+<div class="home">
+  <h1 class="page-heading">Category: {{ page.title }}</h1>
+
+  <ul class="post-list" id="post-list">
+    {% assign category_posts = site.posts | where: "categories", page.title %}
+    {%- for post in category_posts -%}
+    <li data-lang="{{ post.lang | default: site.default_lang }}" data-title="{{ post.title | escape | downcase }}">
+      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+      <span class="post-meta">{{ post.date | date: date_format }}</span>
+      <h3>
+        <a class="post-link" href="{{ post.url | relative_url }}">
+          {{ post.title | escape }}
+        </a>
+      </h3>
+      {%- if site.show_excerpts -%}
+      {{ post.excerpt }}
+      {%- endif -%}
+    </li>
+    {%- endfor -%}
+  </ul>
+</div>
