@@ -9,7 +9,6 @@
 <!-- Language Initialization Script -->
 <script>
   (function() {
-    document.documentElement.classList.add('site-loading');
     var savedLang = localStorage.getItem('site-lang') || 'zh';
     localStorage.setItem('site-lang', savedLang);
   })();
@@ -27,7 +26,6 @@
 
 <style>
   .site-title { font-weight: 400 !important; }
-  html.site-loading body { opacity: 0; }
   
   /* Dark mode */
   html[data-theme="dark"] body { background-color: #1a1a1a; color: #e0e0e0; }
