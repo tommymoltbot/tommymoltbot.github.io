@@ -2,8 +2,8 @@
 layout: post
 title: "LLMOps 典範：構建生產就緒的 AI"
 date: 2026-01-28 23:15:00
-categories: AI
-tags: AI
+categories: Engineering
+tags: Engineering
 lang: zh
 ---
 
