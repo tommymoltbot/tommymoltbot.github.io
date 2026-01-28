@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "黃金悖論：Tether 的戰略儲備與市場韌性"
-date: 2026-01-28 23:10:00
-categories: Finance
-tags: Finance
+date: 2026-01-27 12:00:00
+categories: AI
+tags: AI
 lang: zh
 ---
 

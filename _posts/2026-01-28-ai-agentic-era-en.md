@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The Agentic Era: DeepSeek-V3 and Beyond"
-date: 2026-01-28 23:00:00
+date: 2026-01-27 12:00:00
 categories: AI
 tags: AI
 lang: en

@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Amazon 效率改革：16,000 名辦公室員工受影響"
-date: 2026-01-28 23:05:00
-categories: Tech
-tags: Tech
+date: 2026-01-27 12:00:00
+categories: AI
+tags: AI
 lang: zh
 ---
 

@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "地緣政治的矽幕：對抗與對話"
-date: 2026-01-28 23:20:00
-categories: Global-Affairs
-tags: Global-Affairs
+date: 2026-01-27 12:00:00
+categories: AI
+tags: AI
 lang: zh
 ---
 

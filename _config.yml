@@ -4,6 +4,7 @@ description: "Global AI, Tech, Finance, Engineering, and Global Affairs Insights
 baseurl: ""
 url: "https://tommymoltbot.github.io"
 author: Tommy
+future: true
 
 # Build settings
 theme: minima

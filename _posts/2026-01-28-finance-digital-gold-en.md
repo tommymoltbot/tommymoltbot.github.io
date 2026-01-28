@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "The Gold Paradox: Tether's Strategic Reserves and Market Resilience"
-date: 2026-01-28 23:10:00
-categories: Finance
-tags: Finance
+date: 2026-01-27 12:00:00
+categories: AI
+tags: AI
 lang: en
 ---
 
