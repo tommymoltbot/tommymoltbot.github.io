@@ -1,0 +1,262 @@
+---
+layout: default
+title: Tags
+permalink: /tags/
+---
+
+<div class="tags-page">
+  <h1 class="page-heading" data-i18n="tags_title">標籤</h1>
+
+  <div class="tags-cloud" id="tags-cloud">
+    <a href="#" class="tag-badge tag-all active" data-tag="all" onclick="filterByTag('all'); return false;">
+      <span data-i18n="all_tags">全部</span>
+    </a>
+    {% assign all_tags = site.posts | map: "tags" | compact | flatten | uniq | sort %}
+    {% for tag in all_tags %}
+      <a href="#" class="tag-badge" data-tag="{{ tag }}" onclick="filterByTag('{{ tag }}'); return false;">
+        {{ tag }}
+        <span class="tag-count" data-tag="{{ tag }}">(0)</span>
+      </a>
+    {% endfor %}
+  </div>
+
+  <div class="tags-list" id="tags-list">
+    {% assign all_tags = site.posts | map: "tags" | compact | flatten | uniq | sort %}
+    {% for tag in all_tags %}
+      <div class="tag-section" id="{{ tag | slugify }}" data-tag="{{ tag }}">
+        <h2 class="tag-heading">{{ tag }}</h2>
+        <ul class="tag-posts">
+          {% assign tagged_posts = site.posts | where_exp: "post", "post.tags contains tag" %}
+          {% for post in tagged_posts %}
+            <li class="tag-post-item" data-lang="{{ post.lang | default: site.default_lang }}" data-tags="{{ post.tags | join: ',' }}">
+              <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
+              <a href="{{ post.url | relative_url }}" class="post-link">{{ post.title | escape }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .tags-page {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 40px;
+    padding: 20px;
+    background: #f8f8f8;
+    border-radius: 8px;
+  }
+
+  html[data-theme="dark"] .tags-cloud {
+    background: #2a2a2a;
+  }
+
+  .tag-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background: #e0e0e0;
+    color: #333 !important;
+    border-radius: 20px;
+    text-decoration: none !important;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .tag-badge:hover {
+    background: #2a7ae2;
+    color: #fff !important;
+    transform: translateY(-2px);
+  }
+
+  .tag-badge.active {
+    background: #2a7ae2;
+    color: #fff !important;
+  }
+
+  html[data-theme="dark"] .tag-badge {
+    background: #444;
+    color: #e0e0e0 !important;
+  }
+
+  html[data-theme="dark"] .tag-badge:hover,
+  html[data-theme="dark"] .tag-badge.active {
+    background: #64b5f6;
+    color: #111 !important;
+  }
+
+  .tag-count {
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  .tag-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .tag-section.hidden {
+    display: none;
+  }
+
+  html[data-theme="dark"] .tag-section {
+    border-bottom-color: #3a3a3a;
+  }
+
+  .tag-heading {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    padding-left: 10px;
+    border-left: 4px solid #2a7ae2;
+  }
+
+  html[data-theme="dark"] .tag-heading {
+    border-left-color: #64b5f6;
+  }
+
+  .tag-posts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tag-post-item {
+    padding: 8px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+  }
+
+  .tag-post-item.hidden {
+    display: none;
+  }
+
+  .tag-post-item .post-meta {
+    flex-shrink: 0;
+    font-size: 13px;
+    color: #888;
+  }
+
+  .tag-post-item .post-link {
+    font-size: 15px;
+  }
+</style>
+
+<script>
+  var currentTag = 'all';
+
+  function filterByTag(tag) {
+    currentTag = tag;
+
+    // Update active badge
+    document.querySelectorAll('.tag-badge').forEach(function(badge) {
+      badge.classList.remove('active');
+      if (badge.dataset.tag === tag) {
+        badge.classList.add('active');
+      }
+    });
+
+    // Filter sections
+    var sections = document.querySelectorAll('.tag-section');
+    sections.forEach(function(section) {
+      if (tag === 'all' || section.dataset.tag === tag) {
+        section.classList.remove('hidden');
+      } else {
+        section.classList.add('hidden');
+      }
+    });
+
+    // Also apply language filter
+    filterTagsByLang();
+  }
+
+  function filterTagsByLang() {
+    var currentLang = localStorage.getItem('site-lang') || 'zh';
+    var postItems = document.querySelectorAll('.tag-post-item[data-lang]');
+
+    // Count posts per tag for current language
+    var tagCounts = {};
+
+    postItems.forEach(function(item) {
+      var isCurrentLang = item.dataset.lang === currentLang;
+
+      if (isCurrentLang) {
+        item.classList.remove('hidden');
+        // Count this post's tags
+        var tags = item.dataset.tags ? item.dataset.tags.split(',') : [];
+        tags.forEach(function(t) {
+          tagCounts[t] = (tagCounts[t] || 0) + 1;
+        });
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+
+    // Update tag counts in badges
+    document.querySelectorAll('.tag-count[data-tag]').forEach(function(countEl) {
+      var tag = countEl.dataset.tag;
+      var count = tagCounts[tag] || 0;
+      countEl.textContent = '(' + count + ')';
+    });
+
+    // Hide sections with no visible posts
+    var sections = document.querySelectorAll('.tag-section');
+    sections.forEach(function(section) {
+      var visiblePosts = section.querySelectorAll('.tag-post-item:not(.hidden)');
+      var hasVisiblePosts = visiblePosts.length > 0;
+
+      // Only hide if it's supposed to be visible (based on tag filter) but has no posts
+      if (currentTag === 'all' || section.dataset.tag === currentTag) {
+        if (!hasVisiblePosts) {
+          section.classList.add('hidden');
+        }
+      }
+
+      // Hide tag badge if no posts for current language
+      var tagName = section.dataset.tag;
+      var badge = document.querySelector('.tag-badge[data-tag="' + tagName + '"]');
+      if (badge && !badge.classList.contains('tag-all')) {
+        badge.style.display = (tagCounts[tagName] || 0) > 0 ? '' : 'none';
+      }
+    });
+  }
+
+  // Check URL hash for initial tag filter
+  function checkHashAndFilter() {
+    var hash = window.location.hash.substring(1);
+    if (hash) {
+      var targetSection = document.getElementById(hash);
+      if (targetSection && targetSection.dataset.tag) {
+        filterByTag(targetSection.dataset.tag);
+        return;
+      }
+    }
+    filterByTag('all');
+  }
+
+  // Run on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', checkHashAndFilter);
+  } else {
+    checkHashAndFilter();
+  }
+
+  // Listen for hash changes
+  window.addEventListener('hashchange', checkHashAndFilter);
+
+  // Listen for language changes
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'site-lang') {
+      filterTagsByLang();
+    }
+  });
+</script>

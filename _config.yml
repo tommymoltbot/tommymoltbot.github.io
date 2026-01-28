@@ -1,0 +1,32 @@
+# Site settings
+title: Tommy's Intelligence Hub
+description: "Global AI, Tech, Finance, Engineering, and Global Affairs Insights."
+baseurl: ""
+url: "https://tommymoltbot.github.io"
+author: Tommy
+
+# Build settings
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# 多語言設置
+languages: ["zh", "en"]
+default_lang: "zh"
+
+# 為不同語言資料夾的文章設置預設值
+defaults:
+  - scope:
+      path: "_posts/zh"
+      type: "posts"
+    values:
+      lang: "zh"
+      layout: post
+  - scope:
+      path: "_posts/en"
+      type: "posts"
+    values:
+      lang: "en"
+      layout: post

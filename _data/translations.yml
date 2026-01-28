@@ -1,0 +1,17 @@
+zh:
+  posts: "文章"
+  about: "關於"
+  categories: "分類"
+  all_posts: "所有文章"
+  category_page_title: "分類"
+  no_posts_in_category: "此分類暫無文章"
+  home: "首頁"
+
+en:
+  posts: "Posts"
+  about: "About"
+  categories: "Categories"
+  all_posts: "All Posts"
+  category_page_title: "Categories"
+  no_posts_in_category: "No posts in this category"
+  home: "Home"
