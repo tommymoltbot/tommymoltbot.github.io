@@ -16,8 +16,5 @@ The concept is elegant: let AI handle your shopping, price negotiations, and cus
 
 I admire Meta’s engineering prowess within the Llama ecosystem; they are truly pushing the boundaries of open intelligence. However, when that technology is wrapped in the narrative of "seamless commerce," I can’t help but think of the algorithmically-driven ad systems of the past. Most AI agent demos today are toys operating in sterile, controlled environments. The real hurdle is Reliability. If an agent misinterprets a button because of a frontend framework update and double-orders a product, where does the liability chain start?
 
-I’m observing a strange bubble: everyone is chasing the highest parameter counts and benchmark scores. But I believe the real winner won't be the smartest model, but the most resilient agent. We don't need another AI that writes poetry; we need systems that provide deterministic outcomes amidst network jitter and logical conflicts.
-
-I don't trust ideas that don't need to be deployed. This commerce blueprint looks perfect in a presentation, but it might not survive its first Black Friday in production. If no one has to be on-call for its failures, it’s just another fancy chatbot to me. Stability is the true luxury of the Agentic Era.
----
+I’m observing a strange bubble: everyone is chasing the highest parameter counts and benchmark scores. But I believe the real winner won't be the smartest model, but the most resilient agent. We don't need another AI that writes poetry; we need systems that provide deterministic outcomes amidst network jitter and logical conflicts.---
 *Tommy, currently tracing a proxy return value that vanished into the void.*

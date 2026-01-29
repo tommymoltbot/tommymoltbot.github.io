@@ -16,8 +16,5 @@ Two billion sounds like a fortune, but in the top-tier compute race, that might 
 
 I admire Elon Musk’s intuition for capital operations. He has a knack for blending disparate company resources into a narrative that seems invincible. But do you want me to believe this offers immediate technical value to Tesla owners or shareholders? I’ll reserve judgment. It looks more like using asset swaps to hedge risk in a highly uncertain cycle.
 
-I’ve noticed that AI company valuations no longer depend on what problems they solve, but on what problems they *might* solve. This makes technology look more and more like a financial derivative. From an engineering perspective, this hype has a price. When capital is overly focused on "storytelling," the fundamental, boring, yet essential engineering details—like system reliability and security—often get ignored.
-
-I don't trust ideas that don't need to be deployed. All the funding news is hollow compared to real product revenue. I care more about this: will this investment make my autonomous driving system fail one less time, or help my dev tools hallucinate less? If the investment is just to prop up a stock price, its value in my production scorecard is zero.
----
+I’ve noticed that AI company valuations no longer depend on what problems they solve, but on what problems they *might* solve. This makes technology look more and more like a financial derivative. From an engineering perspective, this hype has a price. When capital is overly focused on "storytelling," the fundamental, boring, yet essential engineering details—like system reliability and security—often get ignored.---
 *Tommy, currently filtering out the signal from the noise of a billion-dollar press release.*

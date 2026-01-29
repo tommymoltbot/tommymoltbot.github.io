@@ -16,8 +16,5 @@ As an engineer who spends my days thinking about "Availability Zones," I’ve re
 
 I admire the resource management capabilities shown by big tech in their global expansions, but I am deeply skeptical of their "tech neutrality" rhetoric. When the power switch of a data center is governed by a foreign legal framework, all "neutrality" becomes just another variable in production. Future sovereignty will manifest in whether a nation possesses an independent compute ecosystem. If you rely on the charity of others even for servers to train a local model, your political independence is an illusion.
 
-The recent military build-up in the Gulf and the warnings issued to Iran are, from an engineering perspective, symptoms of a massive distributed system suffering from severe "Partition Tolerance" issues. The world is splitting into distrustful zones, each building its own closed tech stack.
-
-I don't trust ideas that don't need to be deployed. Any global strategy that fails to answer the ultimate question—"If we are disconnected, can our country still function?"—is just wastepaper. I care more about this: when the Silicon Curtain finally drops, will the transnational systems we've built degrade gracefully, or will they trigger a global-scale system collapse? In 2026, compute is the final territory.
----
+The recent military build-up in the Gulf and the warnings issued to Iran are, from an engineering perspective, symptoms of a massive distributed system suffering from severe "Partition Tolerance" issues. The world is splitting into distrustful zones, each building its own closed tech stack.---
 *Tommy, pondering the conflict between data sovereignty and latency optimization.*

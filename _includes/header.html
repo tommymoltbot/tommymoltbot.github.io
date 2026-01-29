@@ -171,13 +171,33 @@ html[data-theme="dark"] .search-container { background: #252525; color: #e0e0e0;
 .search-result-item a { font-weight: bold; }
 
 @media screen and (max-width: 600px) {
-  .site-header-flex { flex-direction: column !important; height: auto !important; align-items: flex-start !important; padding: 10px 20px !important; }
-  .site-nav { width: 100%; height: auto !important; display: block !important; }
-  .site-nav .trigger { display: none !important; padding-top: 10px; flex-direction: column; align-items: flex-start !important; height: auto !important; }
+  .site-header-flex { flex-direction: row !important; height: 56px !important; align-items: center !important; padding: 0 20px !important; }
+  .site-nav { position: static !important; display: block !important; }
+  .site-nav .menu-icon { display: block !important; cursor: pointer; padding: 10px; margin-right: -10px; }
+  html[data-theme="dark"] .site-nav .menu-icon > svg { fill: #e0e0e0; }
+  .site-nav .trigger { 
+    display: none !important; 
+    position: absolute; 
+    top: 56px; 
+    right: 0; 
+    background: #fff; 
+    width: 200px; 
+    border: 1px solid #eee; 
+    border-radius: 0 0 0 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    flex-direction: column !important;
+    height: auto !important;
+    padding: 10px 0 !important;
+  }
+  html[data-theme="dark"] .site-nav .trigger { background: #252525; border-color: #444; }
   .site-nav input:checked ~ .trigger { display: flex !important; }
-  .site-nav .page-link { margin-left: 0 !important; height: 40px !important; line-height: 40px !important; }
-  .settings-dropdown { margin-left: 0; height: auto !important; }
-  .settings-btn { height: 40px !important; line-height: 40px !important; padding: 0 !important; }
-  .settings-menu { position: static; box-shadow: none; border: none; display: block; }
+  .site-nav .page-link { margin-left: 0 !important; padding: 10px 20px !important; width: 100%; border-bottom: 1px solid #f5f5f5; }
+  html[data-theme="dark"] .site-nav .page-link { border-bottom-color: #333; }
+  .settings-dropdown { margin-left: 0; padding: 10px 20px; border-bottom: none; width: 100%; height: auto !important; }
+  .settings-btn { height: auto !important; line-height: 1.5 !important; padding: 0 !important; text-align: left; width: 100%; }
+  .settings-menu { position: static; box-shadow: none; border: none; display: none; padding-left: 15px; width: 100%; }
+  .settings-menu.active { display: block; }
+  .menu-item { padding: 8px 0; border-bottom: none; }
 }
 </style>

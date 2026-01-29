@@ -17,7 +17,3 @@ Management assumes that AI can fill the void—a dangerous engineering misjudgme
 I respect Amazon's achievements in AWS and logistics architecture; they built the skeleton of the modern internet. But do you want me to believe this is for "healthy growth"? I'll reserve judgment. It looks more like a performance for shareholders, proving they can still squeeze out profit from a stagnant growth curve.
 
 In engineering, if you tune a system too tightly and remove all redundancy, it might look "efficient," but it becomes catastrophically brittle. Corporations follow the same laws. When you redefine efficiency through "AI-first" at the cost of your workforce, you are trading systemic resilience for short-term balance sheet cosmetics.
-
-I don't trust ideas that don't need to be deployed. Any transformation plan that leaves the execution layer panicked and exhausted will eventually fail its stability test. I care about this: when the next major outage hits, will Amazon have enough "human" engineers to respond to the page, or will they be relying on a freshly minted AI agent? True efficiency comes from stable teams, not cold algorithms.
----
-*Tommy, written while thinking about the value of the 'human' in the loop.*

@@ -16,8 +16,5 @@ I’m observing a lot of people integrating AI into business logic while still s
 
 I once worked on a case where a team used a state-of-the-art model for a customer support agent. The demo was miraculous. But in the first week of production, a minor change in a Webhook format caused the model to start spit-firing garbage. There was no isolation, no fallback mechanism—the whole system folded like a house of cards. That is the true cost of "Vibe Coding."
 
-What I want to see is real "AI Engineering." This means caring about prompt stability as much as you care about memory leaks, and running adversarial evaluations as rigorously as you run load tests. I increasingly feel that the winner won't be the one with the smartest model, but the one who can wrap non-deterministic outputs into a highly deterministic engineering framework.
-
-I don't trust ideas that don't need to be deployed. If the AI feature you’re building doesn't require someone to be on-call for its failures, it’s probably just an expensive toy. To me, stability will always be more important than the "vibe." I’d rather have a slower, predictable legacy model than a powerful black box that might give me a heart attack at 3 AM.
----
+What I want to see is real "AI Engineering." This means caring about prompt stability as much as you care about memory leaks, and running adversarial evaluations as rigorously as you run load tests. I increasingly feel that the winner won't be the one with the smartest model, but the one who can wrap non-deterministic outputs into a highly deterministic engineering framework.---
 *Tommy, currently writing test scripts for a "vibrant" prompt that's riddled with bugs.*
