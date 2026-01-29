@@ -1,5 +1,5 @@
-<header class="site-header" role="banner">
-  <div class="wrapper site-header-wrapper">
+<header class="site-header">
+  <div class="wrapper site-header-flex">
     <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
 
     <nav class="site-nav">
@@ -7,8 +7,7 @@
       <label for="nav-trigger">
         <span class="menu-icon">
           <svg viewBox="0 0 18 15" width="18px" height="15px">
-            <path
-              d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z" />
+            <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
           </svg>
         </span>
       </label>
@@ -21,21 +20,12 @@
         <a class="page-link" href="{{ "/categories/engineering/" | relative_url }}" data-i18n="cat_engineering">Engineering</a>
         <a class="page-link" href="{{ "/categories/global-affairs/" | relative_url }}" data-i18n="cat_global">Global</a>
 
-        <!-- Settings Dropdown -->
         <div class="settings-dropdown">
-          <button class="settings-btn" id="settings-toggle" data-i18n="settings">
-            Settings
-          </button>
+          <button class="settings-btn" id="settings-toggle" data-i18n="settings">Settings</button>
           <div class="settings-menu" id="settings-menu">
-            <a href="#" class="menu-item" onclick="toggleLanguage(); return false;">
-              <span id="lang-text">EN</span>
-            </a>
-            <a href="#" class="menu-item" onclick="toggleTheme(); return false;">
-              <span id="theme-text">Dark</span>
-            </a>
-            <a href="#" class="menu-item" onclick="openSearch(); return false;" data-i18n="search">
-              Search
-            </a>
+            <a href="#" class="menu-item" onclick="toggleLanguage(); return false;"><span id="lang-text">EN</span></a>
+            <a href="#" class="menu-item" onclick="toggleTheme(); return false;"><span id="theme-text">Dark</span></a>
+            <a href="#" class="menu-item" onclick="openSearch(); return false;" data-i18n="search">Search</a>
           </div>
         </div>
       </div>
@@ -43,12 +33,10 @@
   </div>
 </header>
 
-<!-- Search Overlay -->
 <div id="search-overlay" class="search-overlay" onclick="closeSearchOnOverlay(event)">
   <div class="search-container">
     <div class="search-header">
-      <input type="text" id="search-input" class="search-input" data-i18n-placeholder="search_placeholder"
-        placeholder="Search..." autocomplete="off" />
+      <input type="text" id="search-input" class="search-input" data-i18n-placeholder="search_placeholder" placeholder="Search..." autocomplete="off" />
       <button class="search-close" onclick="closeSearch()">&times;</button>
     </div>
     <div id="search-results" class="search-results"></div>
@@ -59,39 +47,15 @@
   (function () {
     var translations = {
       zh: {
-        cat_ai: "AI",
-        cat_tech: "科技",
-        cat_finance: "金融",
-        cat_engineering: "工程",
-        cat_global: "全球",
-        posts: "文章",
-        home: "首頁",
-        about: "關於",
-        settings: "設定",
-        theme_dark: "深色",
-        theme_light: "淺色",
-        search: "搜尋",
-        search_placeholder: "搜尋文章...",
-        no_results: "找不到文章",
-        search_hint: "輸入關鍵字搜尋...",
+        cat_ai: "AI", cat_tech: "科技", cat_finance: "金融", cat_engineering: "工程", cat_global: "全球",
+        posts: "文章", home: "首頁", about: "關於", settings: "設定", theme_dark: "深色", theme_light: "淺色",
+        search: "搜尋", search_placeholder: "搜尋文章...", no_results: "找不到文章", search_hint: "輸入關鍵字搜尋...",
         site_description: "全球 AI、科技、金融、工程與全球事務洞察。"
       },
       en: {
-        cat_ai: "AI",
-        cat_tech: "Tech",
-        cat_finance: "Finance",
-        cat_engineering: "Engineering",
-        cat_global: "Global",
-        posts: "Posts",
-        home: "Home",
-        about: "About",
-        settings: "Settings",
-        theme_dark: "Dark",
-        theme_light: "Light",
-        search: "Search",
-        search_placeholder: "Search posts...",
-        no_results: "No results",
-        search_hint: "Type to search...",
+        cat_ai: "AI", cat_tech: "Tech", cat_finance: "Finance", cat_engineering: "Engineering", cat_global: "Global",
+        posts: "Posts", home: "Home", about: "About", settings: "Settings", theme_dark: "Dark", theme_light: "Light",
+        search: "Search", search_placeholder: "Search posts...", no_results: "No results", search_hint: "Type to search...",
         site_description: "Global AI, Tech, Finance, Engineering, and Global Affairs Insights."
       }
     };
@@ -100,124 +64,70 @@
       var currentLang = localStorage.getItem('site-lang') || 'zh';
       var newLang = currentLang === 'zh' ? 'en' : 'zh';
       localStorage.setItem('site-lang', newLang);
-      
       var path = window.location.pathname;
-      var isZhPost = path.startsWith('/zh/');
-      var isEnPost = path.startsWith('/en/');
-      
-      if (isZhPost && newLang === 'en') {
-        window.location.href = path.replace('/zh/', '/en/');
-        return;
-      } else if (isEnPost && newLang === 'zh') {
-        window.location.href = path.replace('/en/', '/zh/');
-        return;
-      }
+      if (path.startsWith('/zh/') && newLang === 'en') { window.location.href = path.replace('/zh/', '/en/'); return; }
+      if (path.startsWith('/en/') && newLang === 'zh') { window.location.href = path.replace('/en/', '/zh/'); return; }
       location.reload();
     }
 
     function updateNavbar() {
-      var currentLang = localStorage.getItem('site-lang') || 'zh';
-      var t = translations[currentLang];
-      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var lang = localStorage.getItem('site-lang') || 'zh';
+      var t = translations[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
         var key = el.getAttribute('data-i18n');
-        if (t[key]) { el.textContent = t[key]; }
+        if (t[key]) el.textContent = t[key];
       });
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         var key = el.getAttribute('data-i18n-placeholder');
-        if (t[key]) { el.placeholder = t[key]; }
+        if (t[key]) el.placeholder = t[key];
       });
       var btn = document.getElementById('lang-text');
-      if (btn) { btn.textContent = currentLang === 'zh' ? 'EN' : '中文'; }
+      if (btn) btn.textContent = lang === 'zh' ? 'EN' : '中文';
     }
 
     function toggleTheme() {
-      var currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-      var newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      localStorage.setItem('site-theme', newTheme);
-      document.documentElement.setAttribute('data-theme', newTheme);
+      var current = document.documentElement.getAttribute('data-theme') || 'light';
+      var next = current === 'light' ? 'dark' : 'light';
+      localStorage.setItem('site-theme', next);
+      document.documentElement.setAttribute('data-theme', next);
       updateThemeText();
     }
 
     function updateThemeText() {
-      var currentLang = localStorage.getItem('site-lang') || 'zh';
-      var currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-      var t = translations[currentLang];
-      var themeText = document.getElementById('theme-text');
-      if (themeText) {
-        themeText.textContent = currentTheme === 'light' ? t.theme_dark : t.theme_light;
-      }
+      var lang = localStorage.getItem('site-lang') || 'zh';
+      var theme = document.documentElement.getAttribute('data-theme') || 'light';
+      var themeBtn = document.getElementById('theme-text');
+      if (themeBtn) themeBtn.textContent = theme === 'light' ? translations[lang].theme_dark : translations[lang].theme_light;
     }
 
-    // Search Logic
     var searchData = null;
     function openSearch() {
       document.getElementById('search-overlay').classList.add('active');
       document.getElementById('search-input').focus();
       document.getElementById('settings-menu').classList.remove('active');
       if (!searchData) {
-        fetch('{{ "/search.json" | relative_url }}')
-          .then(response => response.json())
-          .then(data => { searchData = data; });
+        fetch('{{ "/search.json" | relative_url }}').then(r => r.json()).then(d => { searchData = d; });
       }
     }
-    function closeSearch() {
-      document.getElementById('search-overlay').classList.remove('active');
-    }
-    function closeSearchOnOverlay(e) {
-      if (e.target.id === 'search-overlay') closeSearch();
-    }
+    function closeSearch() { document.getElementById('search-overlay').classList.remove('active'); }
+    function closeSearchOnOverlay(e) { if (e.target.id === 'search-overlay') closeSearch(); }
 
-    window.toggleLanguage = toggleLanguage;
-    window.toggleTheme = toggleTheme;
-    window.openSearch = openSearch;
-    window.closeSearch = closeSearch;
-    window.closeSearchOnOverlay = closeSearchOnOverlay;
+    window.toggleLanguage = toggleLanguage; window.toggleTheme = toggleTheme;
+    window.openSearch = openSearch; window.closeSearch = closeSearch; window.closeSearchOnOverlay = closeSearchOnOverlay;
 
     document.addEventListener('DOMContentLoaded', function() {
-      updateNavbar();
-      updateThemeText();
+      updateNavbar(); updateThemeText();
+      var toggle = document.getElementById('settings-toggle'), menu = document.getElementById('settings-menu');
+      toggle.addEventListener('click', e => { e.stopPropagation(); menu.classList.toggle('active'); });
+      document.addEventListener('click', () => menu.classList.remove('active'));
       
-      // Settings Dropdown Logic
-      var settingsToggle = document.getElementById('settings-toggle');
-      var settingsMenu = document.getElementById('settings-menu');
-      
-      settingsToggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        settingsMenu.classList.toggle('active');
-      });
-      
-      document.addEventListener('click', function() {
-        settingsMenu.classList.remove('active');
-      });
-      
-      var searchInput = document.getElementById('search-input');
-      if (searchInput) {
-        searchInput.addEventListener('input', function() {
-          var query = this.value.toLowerCase();
-          var results = document.getElementById('search-results');
-          var currentLang = localStorage.getItem('site-lang') || 'zh';
-          var t = translations[currentLang];
-          
-          if (!query || !searchData) {
-            results.innerHTML = '';
-            return;
-          }
-          
-          var matches = searchData.filter(post => 
-            post.lang === currentLang && 
-            (post.title.toLowerCase().includes(query) || post.content.toLowerCase().includes(query))
-          );
-          
-          if (matches.length === 0) {
-            results.innerHTML = '<div class="no-results">' + t.no_results + '</div>';
-          } else {
-            results.innerHTML = matches.map(post => `
-              <div class="search-result-item">
-                <a href="${post.url}">${post.title}</a>
-                <span class="post-meta">${post.date}</span>
-              </div>
-            `).join('');
-          }
+      var input = document.getElementById('search-input');
+      if (input) {
+        input.addEventListener('input', function() {
+          var q = this.value.toLowerCase(), res = document.getElementById('search-results'), lang = localStorage.getItem('site-lang') || 'zh';
+          if (!q || !searchData) { res.innerHTML = ''; return; }
+          var matches = searchData.filter(p => p.lang === lang && (p.title.toLowerCase().includes(q) || p.content.toLowerCase().includes(q)));
+          res.innerHTML = matches.length === 0 ? `<div class="no-results">${translations[lang].no_results}</div>` : matches.map(p => `<div class="search-result-item"><a href="${p.url}">${p.title}</a><span class="post-meta">${p.date}</span></div>`).join('');
         });
       }
     });
@@ -225,171 +135,49 @@
 </script>
 
 <style>
-.site-header {
-  min-height: 56px;
-  line-height: 56px;
-}
-.site-header-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 56px;
-}
-.site-title {
-  margin-right: auto;
-  line-height: 56px;
-}
-.site-nav {
-  position: relative;
-  float: none;
-  margin: 0;
-  line-height: 56px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-}
-.site-nav .trigger {
-  display: flex;
-  align-items: center;
-  height: 56px;
-}
-.site-nav .page-link {
-  display: inline-block;
-  margin-left: 20px !important;
-  line-height: 56px;
-  height: 56px;
-}
+/* Reset and Alignment */
+.site-header { border-top: none; border-bottom: 1px solid #e8e8e8; min-height: 56px; line-height: 56px; position: relative; }
+.site-header-flex { display: flex !important; justify-content: space-between !important; align-items: center !important; height: 56px !important; }
+.site-title { float: none !important; margin: 0 !important; line-height: 56px !important; height: 56px !important; display: flex !important; align-items: center !important; }
+.site-nav { float: none !important; line-height: 56px !important; height: 56px !important; display: flex !important; align-items: center !important; }
+.site-nav .trigger { display: flex !important; align-items: center !important; height: 56px !important; }
+.site-nav .page-link { margin-left: 20px !important; line-height: 56px !important; height: 56px !important; display: block !important; padding: 0 !important; }
 
-/* Settings Dropdown Styles */
-.settings-dropdown {
-  position: relative;
-  margin-left: 20px;
-  display: flex;
-  align-items: center;
-  height: 56px;
-}
-.settings-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0 10px;
-  font-size: 1.1em;
-  display: flex;
-  align-items: center;
-  height: 56px;
-  line-height: 56px;
-  color: #828282; /* Match Minima default link color */
-}
-.settings-btn:hover {
-  color: #333;
-}
-html[data-theme="dark"] .settings-btn {
-  color: #e0e0e0;
-}
-.settings-menu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  display: none;
-  min-width: 120px;
-  z-index: 100;
-  line-height: 1.5; /* Reset line-height for menu items */
-}
-.settings-menu.active {
-  display: block;
-}
-.menu-item {
-  display: block;
-  padding: 10px 15px;
-  text-decoration: none;
-  color: #333 !important;
-  line-height: 1.5;
-  border-bottom: 1px solid #f5f5f5;
-}
-.menu-item:last-child {
-  border-bottom: none;
-}
-.menu-item:hover {
-  background: #f9f9f9;
-}
+/* Dropdown */
+.settings-dropdown { position: relative; margin-left: 20px; display: flex; align-items: center; height: 56px; }
+.settings-btn { background: none; border: none; cursor: pointer; padding: 0 10px; font-size: 1.1em; color: #828282; line-height: 56px; height: 56px; }
+.settings-btn:hover { color: #333; }
+html[data-theme="dark"] .settings-btn { color: #e0e0e0; }
+.settings-menu { position: absolute; top: 100%; right: 0; background: #fff; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: none; min-width: 120px; z-index: 100; line-height: 1.5; }
+.settings-menu.active { display: block; }
+.menu-item { display: block; padding: 10px 15px; text-decoration: none; color: #333 !important; border-bottom: 1px solid #f5f5f5; }
+.menu-item:last-child { border-bottom: none; }
+.menu-item:hover { background: #f9f9f9; }
 
-/* Dark mode overrides for dropdown */
-html[data-theme="dark"] .settings-menu {
-  background: #252525;
-  border-color: #444;
-}
-html[data-theme="dark"] .menu-item {
-  color: #e0e0e0 !important;
-  border-bottom-color: #333;
-}
-html[data-theme="dark"] .menu-item:hover {
-  background: #333;
-}
+/* Dark mode */
+html[data-theme="dark"] .settings-menu { background: #252525; border-color: #444; }
+html[data-theme="dark"] .menu-item { color: #e0e0e0 !important; border-bottom-color: #333; }
+html[data-theme="dark"] .menu-item:hover { background: #333; }
 
-.search-overlay {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.8);
-  z-index: 1000;
-  padding: 50px;
-}
+/* Search */
+.search-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; padding: 50px; line-height: 1.5; }
 .search-overlay.active { display: block; }
-.search-container {
-  max-width: 800px;
-  margin: 0 auto;
-  background: var(--background-color, #fff);
-  padding: 20px;
-  border-radius: 8px;
-}
+.search-container { max-width: 800px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; }
 html[data-theme="dark"] .search-container { background: #252525; color: #e0e0e0; }
 .search-header { display: flex; align-items: center; margin-bottom: 20px; }
 .search-input { flex: 1; padding: 10px; font-size: 1.2em; border: 1px solid #ccc; border-radius: 4px; }
 .search-close { background: none; border: none; font-size: 2em; cursor: pointer; margin-left: 10px; color: inherit; }
 .search-result-item { padding: 10px 0; border-bottom: 1px solid #eee; }
-html[data-theme="dark"] .search-result-item { border-bottom-color: #3a3a3a; }
-.search-result-item a { font-weight: bold; font-size: 1.1em; }
+.search-result-item a { font-weight: bold; }
 
 @media screen and (max-width: 600px) {
-  .site-header-wrapper {
-    display: block;
-    height: auto;
-  }
-  .site-nav {
-    display: block;
-    margin-top: 10px;
-    height: auto;
-    line-height: inherit;
-  }
-  .site-nav .trigger {
-    display: block;
-    height: auto;
-  }
-  .site-nav .page-link {
-    margin-left: 0 !important;
-    margin-right: 20px;
-    height: 40px;
-    line-height: 40px;
-  }
-  .settings-dropdown {
-    margin-left: 0;
-    margin-top: 10px;
-    height: auto;
-  }
-  .settings-btn {
-    height: 40px;
-    line-height: 40px;
-    padding: 0;
-  }
-  .settings-menu {
-    position: static;
-    box-shadow: none;
-    border: none;
-    display: block;
-  }
+  .site-header-flex { flex-direction: column !important; height: auto !important; align-items: flex-start !important; padding: 10px 20px !important; }
+  .site-nav { width: 100%; height: auto !important; display: block !important; }
+  .site-nav .trigger { display: none !important; padding-top: 10px; flex-direction: column; align-items: flex-start !important; height: auto !important; }
+  .site-nav input:checked ~ .trigger { display: flex !important; }
+  .site-nav .page-link { margin-left: 0 !important; height: 40px !important; line-height: 40px !important; }
+  .settings-dropdown { margin-left: 0; height: auto !important; }
+  .settings-btn { height: 40px !important; line-height: 40px !important; padding: 0 !important; }
+  .settings-menu { position: static; box-shadow: none; border: none; display: block; }
 }
 </style>
