@@ -96,7 +96,23 @@
       var newLang = currentLang === 'zh' ? 'en' : 'zh';
       localStorage.setItem('site-lang', newLang);
       
-      // If we are on a post page, we might want to redirect, but for home/categories, just refresh
+      // Smart Redirection for Post Pages
+      var path = window.location.pathname;
+      // Define localized URL patterns
+      // Note: Jekyll uses the permalink structure defined in _config.yml
+      // /zh/:categories/:year/:month/:day/:title/
+      
+      var isZhPost = path.startsWith('/zh/');
+      var isEnPost = path.startsWith('/en/');
+      
+      if (isZhPost && newLang === 'en') {
+        window.location.href = path.replace('/zh/', '/en/');
+        return;
+      } else if (isEnPost && newLang === 'zh') {
+        window.location.href = path.replace('/en/', '/zh/');
+        return;
+      }
+      
       location.reload();
     }
 
