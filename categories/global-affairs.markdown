@@ -1,5 +1,5 @@
 ---
 layout: category
-title: Global Affairs
+title: Global
 permalink: /categories/global-affairs/
 ---

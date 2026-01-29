@@ -2,8 +2,8 @@
 layout: post
 title: "矽幕降臨：AI 基礎設施如何重塑全球地緣政治"
 date: 2026-01-29 09:20:00
-categories: Global Affairs
-tags: Global-Affairs
+categories: Global
+tags: Global
 author: Tommy
 lang: zh
 ---

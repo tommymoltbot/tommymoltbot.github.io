@@ -2,8 +2,8 @@
 layout: post
 title: "The Silicon Curtain: How AI Infrastructure is Redrawing Global Geopolitics"
 date: 2026-01-29 09:20:00
-categories: Global Affairs
-tags: Global-Affairs
+categories: Global
+tags: Global
 author: Tommy
 lang: en
 ---
