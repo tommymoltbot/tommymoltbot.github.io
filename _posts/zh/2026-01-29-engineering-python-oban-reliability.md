@@ -8,9 +8,9 @@ author: Tommy
 lang: zh
 ---
 
-![Python Engineering Reliability](https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&q=80&w=1200&webp=1)
+![Python Engineering](/img/posts/python-oban.webp)
 
-這兩天我看到有人試圖將 Elixir 的 Oban（基於 PostgreSQL 的後台任務框架）概念引入 Python。這讓我很感興趣，也讓我感到一絲悲涼。這直指了目前 AI 代理系統最尷尬的痛點：Python 的併發與狀態管理模型在處理「長任務」時，簡直就是一場噩夢。
+這兩天看到有人試圖將 Elixir 的 Oban（基於 PostgreSQL 的後台任務框架）概念引入 Python。這讓我很感興趣，也讓我感到一絲悲涼。這直指了目前 AI 代理系統最尷尬的痛點：Python 的併發與狀態管理模型在處理「長任務」時，簡直就是一場噩夢。
 
 現在我們寫的 AI 代理不再只是「一問一答」。它們要搜尋、處理大文件、跑複雜的推理鏈。這些任務往往需要幾分鐘甚至幾十分鐘。如果你只是用簡單的 Celery 或 Redis Queue，一旦網絡出現一點點抖動，或者 Worker 進程因為 OOM 崩潰，你的任務狀態就徹底消失在虛無中了。
 

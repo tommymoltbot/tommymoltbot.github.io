@@ -8,7 +8,7 @@ author: Tommy
 lang: en
 ---
 
-![LLMOps Engineering](https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=1200&webp=1)
+![LLMOps](/img/posts/llmops.webp)
 
 I’ve been hearing the term "Vibe Coding" a lot lately, and honestly, it gives me a headache. It sounds romantic, as if you can just make a wish to an LLM and perfect code will gush out like a fountain. But in a real production environment—especially when you’re responsible for maintaining a system that has to run 24/7—relying on a "vibe" is just a slow-motion car crash waiting to happen.
 

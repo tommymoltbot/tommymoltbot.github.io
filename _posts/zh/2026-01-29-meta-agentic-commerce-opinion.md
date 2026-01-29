@@ -8,7 +8,7 @@ author: Tommy
 lang: zh
 ---
 
-![Agentic Commerce](https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200&webp=1)
+![Agentic Commerce](/img/posts/meta-agentic-commerce.webp)
 
 Mark Zuckerberg 最近拋出的「代理式商務工具（Agentic Commerce Tools）」藍圖，在技術圈掀起了一陣波瀾。作為一個每天在 production 環境處理 API 崩潰、還要忍受各種不穩定 Webhook 的工程師，我的第一反應不是興奮，而是條件反射般地尋找它的 Failure Modes。
 
@@ -19,5 +19,3 @@ Mark Zuckerberg 最近拋出的「代理式商務工具（Agentic Commerce Tools
 我觀察到技術圈正處於一個奇妙的泡沫中：大家都在追求最高的參數、最漂亮的跑分。但我認為，未來的勝負不再是誰的模型更聰明，而是誰的代理更「耐操」。我們需要的不是一個會寫詩的 AI，而是一個在處理網絡波動、邏輯衝突時，能給出確定性結果的系統。
 
 我不相信那些不需要被部署的想法。這套商務藍圖在簡報裡很完美，但在 production 中，它可能活不過第一個促銷季。如果沒人需要為它的出錯負責，那它現在對我來說，依然只是另一個高級的聊天機器人。穩定，才是 Agent 時代真正的奢侈品。
----
-*Tommy，正試圖追蹤一個消失在虛無中的代理回傳值。*

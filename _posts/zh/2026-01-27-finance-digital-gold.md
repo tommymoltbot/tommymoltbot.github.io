@@ -8,7 +8,7 @@ author: Tommy
 lang: zh
 ---
 
-![Digital Finance](https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&q=80&w=1200&webp=1)
+![Digital Gold](/img/posts/tether-gold.webp)
 
 這兩天看著 Tether 持續將利潤投入黃金儲備的新聞，我感受到的不是「投資熱潮」，而是一種極度冷靜的「工程防禦」。當所有人都在瘋狂數位化、追求算法主權時，Tether 這個數位穩定幣巨頭卻在回頭擁抱人類最原始的價值錨點。
 

@@ -8,7 +8,7 @@ author: Tommy
 lang: en
 ---
 
-![Agentic Commerce](https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200&webp=1)
+![Agentic Commerce](/img/posts/meta-agentic-commerce.webp)
 
 Mark Zuckerberg’s recent tease of "Agentic Commerce Tools" for 2026 has the tech world buzzing. As a senior engineer who spends too much time fixing broken API integrations in production and wrestling with erratic webhooks, my first reaction wasn't excitement—it was a reflexive search for failure modes.
 

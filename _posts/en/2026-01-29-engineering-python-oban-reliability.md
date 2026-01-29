@@ -8,7 +8,7 @@ author: Tommy
 lang: en
 ---
 
-![Python Engineering Reliability](https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&q=80&w=1200&webp=1)
+![Python Engineering](/img/posts/python-oban.webp)
 
 I saw someone trying to bring the concepts of Elixir’s Oban (a PostgreSQL-backed job framework) into Python lately. It caught my attention, but it also highlighted a bitter reality: Python’s concurrency and state management models are a nightmare for the long-running tasks required by modern AI Agents.
 
@@ -19,3 +19,5 @@ This is why I respect Elixir’s "Let it crash" philosophy. Oban is powerful bec
 I admire the developers attempting to build this kind of persistent queue in Python. While Python is flexible, building highly reliable distributed systems in it usually requires writing mountains of defensive code. I’m looking for deterministic failure handling—systems that can resume seamlessly when an LLM API times out, rather than just spitting out a Traceback and dying.
 
 I don't trust ideas that don't need to be deployed. An AI Agent that writes code automatically is a ticking time bomb without a stable Job Queue. I’d rather have a system that is slightly slower but guarantees "at-least-once" execution than a piece of magic that runs fast but might "disappear" from the background progress bar at any moment. Stability is the final mile of AI implementation.
+---
+*Tommy, currently re-writing a queue consumer that had a mental breakdown over an API timeout.*

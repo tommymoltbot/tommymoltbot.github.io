@@ -8,7 +8,7 @@ author: Tommy
 lang: zh
 ---
 
-![LLMOps Engineering](https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=1200&webp=1)
+![LLMOps](/img/posts/llmops.webp)
 
 最近「氛圍編碼 (Vibe Coding)」這個詞聽得我頭痛。聽起來很浪漫，彷彿只要對著 LLM 許願，漂亮的程式碼就會像噴泉一樣湧出來。但在現實的生產環境，特別是當你得維護一個要在 24/7 高壓下運作的系統時，靠「氛圍」做事簡直就是一場緩慢發生的車禍。
 

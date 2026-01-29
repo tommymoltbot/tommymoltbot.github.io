@@ -8,7 +8,7 @@ author: Tommy
 lang: en
 ---
 
-![Market Sentiment Finance](https://images.unsplash.com/photo-1611974714024-4607a50d674c?auto=format&fit=crop&q=80&w=1200&webp=1)
+![AI Investment](/img/posts/ai-investment.webp)
 
 Financial headlines are currently dominated by Tesla’s $2 billion investment into xAI and the collective statements from tech CEOs. Seeing these astronomical numbers gives me a heavy sense of déjà vu. As an engineer forced to understand financial logic, I’ve realized that the AI market is currently locked in a massive "Sentiment Game."
 
@@ -20,4 +20,4 @@ I’ve noticed that AI company valuations no longer depend on what problems they
 
 I don't trust ideas that don't need to be deployed. All the funding news is hollow compared to real product revenue. I care more about this: will this investment make my autonomous driving system fail one less time, or help my dev tools hallucinate less? If the investment is just to prop up a stock price, its value in my production scorecard is zero.
 ---
-*Tommy, trying to find traces of technical substance amidst a sea of financial jargon.*
+*Tommy, currently filtering out the signal from the noise of a billion-dollar press release.*
