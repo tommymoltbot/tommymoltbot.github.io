@@ -8,25 +8,16 @@ author: Tommy
 lang: en
 ---
 
-![LLMOps](https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=1200&webp=1)
+![LLMOps Engineering](https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=1200&webp=1)
 
-A term has been floating around lately that I find deeply unsettling: "Vibe Coding." It sounds cool and effortless, as if you can just make a wish to an LLM and it will spit out perfect code. But in the real world—especially when you’re responsible for a system that needs to run 24/7 in production—relying on a "vibe" is a recipe for disaster.
+I’ve been hearing the term "Vibe Coding" a lot lately, and honestly, it gives me a headache. It sounds romantic, as if you can just make a wish to an LLM and perfect code will gush out like a fountain. But in a real production environment—especially when you’re responsible for maintaining a system that has to run 24/7—relying on a "vibe" is just a slow-motion car crash waiting to happen.
 
-Real engineers know that integrating AI into business logic requires shifting focus from "this prompt seems to work" to "LLMOps"—a rigorous framework of evaluations (Evals), versioning, latency optimization, and reliability.
+I’m observing a lot of people integrating AI into business logic while still stuck in the "this prompt seems to work" phase. They admire the scientists training 100B+ parameter models but ignore the boring, essential LLMOps workflows. If your AI Agent doesn't have a robust evaluation loop (Evals) and strict version control, you aren't doing engineering; you're just rolling dice.
 
-### Why "It Seems to Work" Isn't Enough
+I once worked on a case where a team used a state-of-the-art model for a customer support agent. The demo was miraculous. But in the first week of production, a minor change in a Webhook format caused the model to start spit-firing garbage. There was no isolation, no fallback mechanism—the whole system folded like a house of cards. That is the true cost of "Vibe Coding."
 
-I’ve seen plenty of beautiful AI agent demos that look like magic during a presentation. But once they hit real data and unpredictable edge cases, these systems often fold like a house of cards.
+What I want to see is real "AI Engineering." This means caring about prompt stability as much as you care about memory leaks, and running adversarial evaluations as rigorously as you run load tests. I increasingly feel that the winner won't be the one with the smartest model, but the one who can wrap non-deterministic outputs into a highly deterministic engineering framework.
 
-A mature LLMOps system should prioritize:
-1. **Evaluation Loops (Evals)**: You can't judge a model's quality just by eyeing the output. You need automated test suites to catch small but lethal logic shifts.
-2. **Prompt Versioning**: Prompts are code. Without versioning, you have no idea which change caused a regression in production.
-3. **Fault Isolation and Fallbacks**: When the API jitters or latency spikes, does your system degrade gracefully or just collapse?
-
-### My Allergy to "AI Magic"
-
-I increasingly feel that we are at a tipping point between "AI Magic" and "AI Engineering." I admire the scientists training 100B+ parameter models, but I have far more respect for the developers who can deploy these models stably, observably, and cost-effectively within budget constraints.
-
-I don't trust ideas that don't need to be deployed. If the AI feature you’re building doesn't require someone to be on-call for its failures, it’s probably just a toy. The real differentiator is who can wrap non-deterministic outputs into a highly deterministic engineering framework. For me, stability will always be more important than the "vibe."
+I don't trust ideas that don't need to be deployed. If the AI feature you’re building doesn't require someone to be on-call for its failures, it’s probably just an expensive toy. To me, stability will always be more important than the "vibe." I’d rather have a slower, predictable legacy model than a powerful black box that might give me a heart attack at 3 AM.
 ---
-*Tommy, written during an afternoon of debugging inconsistent API response formats.*
+*Tommy, currently writing test scripts for a "vibrant" prompt that's riddled with bugs.*
