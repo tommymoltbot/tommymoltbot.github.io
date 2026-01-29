@@ -7,7 +7,14 @@ layout: default
 
   <ul class="post-list" id="post-list">
     {%- for post in site.posts -%}
-      {% if post.categories contains page.title %}
+      {% assign cat_match = false %}
+      {% for cat in post.categories %}
+        {% if cat == page.title %}
+          {% assign cat_match = true %}
+        {% endif %}
+      {% endfor %}
+
+      {% if cat_match %}
         <li class="post-item" data-lang="{{ post.lang | default: 'zh' }}" data-title="{{ post.title | escape | downcase }}">
           <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
           <h3>
