@@ -13,7 +13,6 @@
       </label>
 
       <div class="trigger">
-        <a class="page-link" href="{{ "/about/" | relative_url }}" data-i18n="about">About</a>
         <a class="page-link" href="{{ "/categories/ai/" | relative_url }}" data-i18n="cat_ai">AI</a>
         <a class="page-link" href="{{ "/categories/tech/" | relative_url }}" data-i18n="cat_tech">Tech</a>
         <a class="page-link" href="{{ "/categories/finance/" | relative_url }}" data-i18n="cat_finance">Finance</a>
@@ -23,6 +22,7 @@
         <div class="settings-dropdown">
           <button class="settings-btn" id="settings-toggle" data-i18n="settings">Settings</button>
           <div class="settings-menu" id="settings-menu">
+            <a class="menu-item" href="{{ "/about/" | relative_url }}" data-i18n="about">About</a>
             <a href="#" class="menu-item" onclick="toggleLanguage(); return false;"><span id="lang-text">EN</span></a>
             <a href="#" class="menu-item" onclick="toggleTheme(); return false;"><span id="theme-text">Dark</span></a>
             <a href="#" class="menu-item" onclick="openSearch(); return false;" data-i18n="search">Search</a>
