@@ -23,8 +23,8 @@
 
         <!-- Settings Dropdown -->
         <div class="settings-dropdown">
-          <button class="settings-btn" id="settings-toggle">
-            <span class="settings-icon">⚙️</span>
+          <button class="settings-btn" id="settings-toggle" data-i18n="settings">
+            Settings
           </button>
           <div class="settings-menu" id="settings-menu">
             <a href="#" class="menu-item" onclick="toggleLanguage(); return false;">
@@ -67,6 +67,7 @@
         posts: "文章",
         home: "首頁",
         about: "關於",
+        settings: "設定",
         theme_dark: "深色",
         theme_light: "淺色",
         search: "搜尋",
@@ -84,6 +85,7 @@
         posts: "Posts",
         home: "Home",
         about: "About",
+        settings: "Settings",
         theme_dark: "Dark",
         theme_light: "Light",
         search: "Search",
@@ -223,28 +225,39 @@
 </script>
 
 <style>
+.site-header {
+  min-height: 56px;
+  line-height: 56px;
+}
 .site-header-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 56px;
+  height: 56px;
 }
 .site-title {
   margin-right: auto;
+  line-height: 56px;
 }
 .site-nav {
   position: relative;
   float: none;
   margin: 0;
+  line-height: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
 }
 .site-nav .trigger {
   display: flex;
   align-items: center;
+  height: 56px;
 }
 .site-nav .page-link {
   display: inline-block;
   margin-left: 20px !important;
-  line-height: inherit;
+  line-height: 56px;
+  height: 56px;
 }
 
 /* Settings Dropdown Styles */
@@ -253,16 +266,25 @@
   margin-left: 20px;
   display: flex;
   align-items: center;
+  height: 56px;
 }
 .settings-btn {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 5px 10px;
-  font-size: 1.2em;
+  padding: 0 10px;
+  font-size: 1.1em;
   display: flex;
   align-items: center;
-  line-height: 1;
+  height: 56px;
+  line-height: 56px;
+  color: #828282; /* Match Minima default link color */
+}
+.settings-btn:hover {
+  color: #333;
+}
+html[data-theme="dark"] .settings-btn {
+  color: #e0e0e0;
 }
 .settings-menu {
   position: absolute;
@@ -275,6 +297,7 @@
   display: none;
   min-width: 120px;
   z-index: 100;
+  line-height: 1.5; /* Reset line-height for menu items */
 }
 .settings-menu.active {
   display: block;
@@ -334,21 +357,33 @@ html[data-theme="dark"] .search-result-item { border-bottom-color: #3a3a3a; }
 @media screen and (max-width: 600px) {
   .site-header-wrapper {
     display: block;
+    height: auto;
   }
   .site-nav {
     display: block;
     margin-top: 10px;
+    height: auto;
+    line-height: inherit;
   }
   .site-nav .trigger {
     display: block;
+    height: auto;
   }
   .site-nav .page-link {
     margin-left: 0 !important;
     margin-right: 20px;
+    height: 40px;
+    line-height: 40px;
   }
   .settings-dropdown {
     margin-left: 0;
     margin-top: 10px;
+    height: auto;
+  }
+  .settings-btn {
+    height: 40px;
+    line-height: 40px;
+    padding: 0;
   }
   .settings-menu {
     position: static;
