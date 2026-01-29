@@ -14,32 +14,30 @@
       </label>
 
       <div class="trigger">
-        <!-- About Link -->
         <a class="page-link" href="{{ "/about/" | relative_url }}" data-i18n="about">About</a>
-
-        <!-- Categories -->
         <a class="page-link" href="{{ "/categories/ai/" | relative_url }}" data-i18n="cat_ai">AI</a>
         <a class="page-link" href="{{ "/categories/tech/" | relative_url }}" data-i18n="cat_tech">Tech</a>
         <a class="page-link" href="{{ "/categories/finance/" | relative_url }}" data-i18n="cat_finance">Finance</a>
         <a class="page-link" href="{{ "/categories/engineering/" | relative_url }}" data-i18n="cat_engineering">Engineering</a>
         <a class="page-link" href="{{ "/categories/global-affairs/" | relative_url }}" data-i18n="cat_global">Global</a>
 
-        <!-- Language Switcher -->
-        <a class="page-link lang-toggle-btn" href="#" id="lang-switcher" onclick="toggleLanguage(); return false;"
-          title="Switch Language">
-          <span id="lang-text">EN</span>
-        </a>
-
-        <!-- Dark Mode Toggle -->
-        <a class="page-link theme-toggle-btn" href="#" id="theme-toggle" onclick="toggleTheme(); return false;"
-          title="Toggle dark mode">
-          <span id="theme-text">Dark</span>
-        </a>
-
-        <!-- Search Button (No Emoji) -->
-        <a class="page-link" href="#" id="search-toggle" onclick="openSearch(); return false;" title="Search">
-          <span id="search-btn-text" data-i18n="search">Search</span>
-        </a>
+        <!-- Settings Dropdown -->
+        <div class="settings-dropdown">
+          <button class="settings-btn" id="settings-toggle">
+            <span class="settings-icon">⚙️</span>
+          </button>
+          <div class="settings-menu" id="settings-menu">
+            <a href="#" class="menu-item" onclick="toggleLanguage(); return false;">
+              <span id="lang-text">EN</span>
+            </a>
+            <a href="#" class="menu-item" onclick="toggleTheme(); return false;">
+              <span id="theme-text">Dark</span>
+            </a>
+            <a href="#" class="menu-item" onclick="openSearch(); return false;" data-i18n="search">
+              Search
+            </a>
+          </div>
+        </div>
       </div>
     </nav>
   </div>
@@ -101,12 +99,7 @@
       var newLang = currentLang === 'zh' ? 'en' : 'zh';
       localStorage.setItem('site-lang', newLang);
       
-      // Smart Redirection for Post Pages
       var path = window.location.pathname;
-      // Define localized URL patterns
-      // Note: Jekyll uses the permalink structure defined in _config.yml
-      // /zh/:categories/:year/:month/:day/:title/
-      
       var isZhPost = path.startsWith('/zh/');
       var isEnPost = path.startsWith('/en/');
       
@@ -117,7 +110,6 @@
         window.location.href = path.replace('/en/', '/zh/');
         return;
       }
-      
       location.reload();
     }
 
@@ -159,6 +151,7 @@
     function openSearch() {
       document.getElementById('search-overlay').classList.add('active');
       document.getElementById('search-input').focus();
+      document.getElementById('settings-menu').classList.remove('active');
       if (!searchData) {
         fetch('{{ "/search.json" | relative_url }}')
           .then(response => response.json())
@@ -181,6 +174,19 @@
     document.addEventListener('DOMContentLoaded', function() {
       updateNavbar();
       updateThemeText();
+      
+      // Settings Dropdown Logic
+      var settingsToggle = document.getElementById('settings-toggle');
+      var settingsMenu = document.getElementById('settings-menu');
+      
+      settingsToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        settingsMenu.classList.toggle('active');
+      });
+      
+      document.addEventListener('click', function() {
+        settingsMenu.classList.remove('active');
+      });
       
       var searchInput = document.getElementById('search-input');
       if (searchInput) {
@@ -218,20 +224,74 @@
 
 <style>
 .site-nav {
-  line-height: 54px; /* Default header height for Minima */
+  line-height: 54px;
 }
 .site-nav .trigger {
-  display: block;
+  display: flex;
+  align-items: center;
 }
 .site-nav .page-link {
   display: inline-block;
   margin-left: 20px !important;
-  margin-right: 0 !important;
 }
-.lang-toggle-btn, .theme-toggle-btn {
-  min-width: 45px;
-  text-align: center;
+
+/* Settings Dropdown Styles */
+.settings-dropdown {
+  position: relative;
+  margin-left: 20px;
 }
+.settings-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+}
+.settings-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  display: none;
+  min-width: 120px;
+  z-index: 100;
+}
+.settings-menu.active {
+  display: block;
+}
+.menu-item {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333 !important;
+  line-height: 1.5;
+  border-bottom: 1px solid #f5f5f5;
+}
+.menu-item:last-child {
+  border-bottom: none;
+}
+.menu-item:hover {
+  background: #f9f9f9;
+}
+
+/* Dark mode overrides for dropdown */
+html[data-theme="dark"] .settings-menu {
+  background: #252525;
+  border-color: #444;
+}
+html[data-theme="dark"] .menu-item {
+  color: #e0e0e0 !important;
+  border-bottom-color: #333;
+}
+html[data-theme="dark"] .menu-item:hover {
+  background: #333;
+}
+
 .search-overlay {
   display: none;
   position: fixed;
@@ -255,4 +315,20 @@ html[data-theme="dark"] .search-container { background: #252525; color: #e0e0e0;
 .search-result-item { padding: 10px 0; border-bottom: 1px solid #eee; }
 html[data-theme="dark"] .search-result-item { border-bottom-color: #3a3a3a; }
 .search-result-item a { font-weight: bold; font-size: 1.1em; }
+
+@media screen and (max-width: 600px) {
+  .site-nav .trigger {
+    display: block;
+  }
+  .settings-dropdown {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+  .settings-menu {
+    position: static;
+    box-shadow: none;
+    border: none;
+    display: block;
+  }
+}
 </style>

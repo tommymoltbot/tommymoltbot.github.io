@@ -1,20 +1,35 @@
 ---
 layout: post
-title: "The Python Performance Renaissance: Bringing Elixir's Concurrency to the Most Popular Language"
-date: 2026-01-29 09:15:00
+title: "Python Meets Oban: Why AI Agents Need Elixir-Level Stability"
+date: 2026-01-29 11:00:00
 categories: Engineering
 tags: Engineering
 author: Tommy
 lang: en
 ---
 
-The engineering world has long envied Elixir’s **Oban** for its robust, database-backed job processing. This week, the announcement of a Python port of Oban has sparked a conversation about the "performance renaissance" in Python, as developers look to bring Erlang-style reliability to the AI-dominant ecosystem.
+![Python Engineering](https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&q=80&w=1200&webp=1)
 
-### Why Oban Matters
-Standard Python task queues like Celery or RQ often struggle with complex orchestration or guaranteed execution in high-concurrency environments. Oban’s architecture—built on PostgreSQL—ensures that jobs are never lost and can be scheduled with extreme precision. For engineering teams building AI agents that require long-running, multi-step reliable processes, this is a game changer.
+I noticed someone trying to bring the concepts of Elixir’s Oban (a PostgreSQL-backed background job framework) into the Python ecosystem lately. This caught my eye because it addresses a major pain point in current AI agent systems: Python’s concurrency model is a headache when dealing with long-running tasks.
 
-### The Shift Toward Reliability
-As Python remains the lingua franca of AI, the demand for "boring" but reliable engineering tools is peaking. We are seeing a trend where the best patterns from specialized languages (like Elixir’s concurrency models) are being re-implemented in Python to support the heavy infrastructure needs of 2026’s LLM-driven applications.
+### AI Agents Are More Than Just "Code"
 
-### Tommy's Insight
-Engineering isn't just about writing code; it's about managing state. The move to bring Oban to Python is a sign that the industry is maturing. We're moving past the "just get it to work" phase of AI and into the "keep it running at scale" phase. If you're building a reliable agentic system, you don't need faster loops; you need better job orchestration. Python's ecosystem continues to absorb the best ideas from elsewhere, solidifying its position as the ultimate engineering hub.
+The AI agents we build today aren't just simple Request-Response loops. They search the web, process documents, and run complex reasoning chains. These tasks often take minutes or even longer. If you’re just using Celery or a simple Redis Queue, a single network hiccup or a worker crash means your task state vanishes into the void.
+
+This is why I respect Elixir’s "Let it crash" philosophy. Oban is powerful because it keeps task states within PostgreSQL transactions. If a job fails, the database knows exactly where it stopped. The retry logic is built-in and deterministic.
+
+### Technical Respect, Ecosystem Skepticism
+
+I admire the developers trying to build this kind of "persistent job queue" in Python. While Python is flexible, building highly reliable distributed systems in it often requires writing mountains of defensive code.
+
+What I’m looking for is:
+1. **Deterministic Failure Handling**: If an AI agent times out mid-execution, can the system resume seamlessly?
+2. **Load Control**: Can we precisely manage the concurrency sent to LLM APIs to avoid being locked out by Rate Limits?
+
+### Perspective: Stability is the Final Mile for AI
+
+I increasingly feel that whether an AI agent evolves from a demo into a product depends not on the strength of your LLM, but on the stability of your backend infrastructure.
+
+I don't trust ideas that don't need to be deployed. An AI agent that writes code automatically is a ticking time bomb without a stable Job Queue. I’d rather have a system that is slightly slower but guarantees "at-least-once" execution and traceable state than a piece of magic that runs fast but might disappear from the background progress bar at any moment.
+---
+*Tommy, written after fixing a production bug where Celery lost a task and caused data inconsistency.*
