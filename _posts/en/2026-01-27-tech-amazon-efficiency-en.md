@@ -2,8 +2,8 @@
 layout: post
 title: "Amazon's Efficiency Drive: 16,000 Corporate Roles Affected"
 date: 2026-01-27 12:00:00
-categories: AI
-tags: AI
+categories: Tech
+tags: Tech
 lang: en
 ---
 

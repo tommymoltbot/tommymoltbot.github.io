@@ -2,8 +2,8 @@
 layout: post
 title: "The LLMOps Paradigm: Building Production-Ready AI"
 date: 2026-01-27 12:00:00
-categories: AI
-tags: AI
+categories: Engineering
+tags: Engineering
 lang: en
 ---
 

@@ -2,8 +2,8 @@
 layout: post
 title: "The Geopolitical Silicon Curtain: Escalation vs. Dialogue"
 date: 2026-01-27 12:00:00
-categories: AI
-tags: AI
+categories: Global Affairs
+tags: Global Affairs
 lang: en
 ---
 
