@@ -1,5 +1,5 @@
 <header class="site-header" role="banner">
-  <div class="wrapper">
+  <div class="wrapper site-header-wrapper">
     <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
 
     <nav class="site-nav">
@@ -223,8 +223,19 @@
 </script>
 
 <style>
+.site-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 56px;
+}
+.site-title {
+  margin-right: auto;
+}
 .site-nav {
-  line-height: 54px;
+  position: relative;
+  float: none;
+  margin: 0;
 }
 .site-nav .trigger {
   display: flex;
@@ -233,12 +244,15 @@
 .site-nav .page-link {
   display: inline-block;
   margin-left: 20px !important;
+  line-height: inherit;
 }
 
 /* Settings Dropdown Styles */
 .settings-dropdown {
   position: relative;
   margin-left: 20px;
+  display: flex;
+  align-items: center;
 }
 .settings-btn {
   background: none;
@@ -248,6 +262,7 @@
   font-size: 1.2em;
   display: flex;
   align-items: center;
+  line-height: 1;
 }
 .settings-menu {
   position: absolute;
@@ -317,8 +332,19 @@ html[data-theme="dark"] .search-result-item { border-bottom-color: #3a3a3a; }
 .search-result-item a { font-weight: bold; font-size: 1.1em; }
 
 @media screen and (max-width: 600px) {
+  .site-header-wrapper {
+    display: block;
+  }
+  .site-nav {
+    display: block;
+    margin-top: 10px;
+  }
   .site-nav .trigger {
     display: block;
+  }
+  .site-nav .page-link {
+    margin-left: 0 !important;
+    margin-right: 20px;
   }
   .settings-dropdown {
     margin-left: 0;
