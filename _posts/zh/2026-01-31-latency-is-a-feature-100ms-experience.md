@@ -39,7 +39,7 @@ lang: zh
 
 ### 借鑑 Core Web Vitals：用用戶語言定義“快”
 
-web.dev/Core Web Vitals 逼著大家把“快不快”講清楚：
+[web.dev — Core Web Vitals](https://web.dev/vitals/) 逼著大家把“快不快”講清楚：
 
 - **LCP**：主要內容出現的時間
 - **INP**：交互後到下一次繪製的響應
