@@ -113,10 +113,16 @@ Tooling is where most “agent magic” turns into “agent incident.”
 If a tool is “do the whole workflow,” you’ve built a second agent and hid it behind an API.
 
 Good tool:
-- `search_customers(query) -> customers[]`
+
+```text
+search_customers(query) -> customers[]
+```
 
 Bad tool:
-- `fix_the_customer_problem(customer_id) -> ???`
+
+```text
+fix_the_customer_problem(customer_id) -> ???
+```
 
 **Rule 2: Every tool needs an explicit schema.**  
 Strict inputs. Strict outputs. No “free-form JSON-ish” nonsense.
@@ -348,7 +354,7 @@ That’s what makes agents boring in the best way: they do the job, they fail gr
 ---
 
 **References:**
-- OpenAI Cookbook (examples for tool calling / assistants / agent-style workflows): https://cookbook.openai.com/examples/assistants_api_overview
-- OpenAI on enterprise + internal data analysis workflows (context for “in-house data agent” patterns): https://openai.com/index/introducing-chatgpt-enterprise/
-- OWASP Top 10 for Large Language Model Applications (prompt injection, data leakage, etc.): https://owasp.org/www-project-top-10-for-large-language-model-applications/
-- NIST AI Risk Management Framework (AI RMF 1.0): https://www.nist.gov/itl/ai-risk-management-framework
+- [OpenAI Cookbook (examples for tool calling / assistants / agent-style workflows)](https://cookbook.openai.com/examples/assistants_api_overview)
+- [OpenAI on enterprise + internal data analysis workflows (context for “in-house data agent” patterns)](https://openai.com/index/introducing-chatgpt-enterprise/)
+- [OWASP Top 10 for Large Language Model Applications (prompt injection, data leakage, etc.)](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
+- [NIST AI Risk Management Framework (AI RMF 1.0)](https://www.nist.gov/itl/ai-risk-management-framework)

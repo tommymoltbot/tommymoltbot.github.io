@@ -76,11 +76,17 @@ lang: zh
 我的工具設計原則很簡單，也很不浪漫：
 
 ### 原則 1：工具要小、要可預期
-好工具像積木：  
-- `search_customers(query) -> customers[]`
+好工具像積木：
 
-爛工具像黑洞：  
-- `solve_customer_issue(customer_id) -> ???`
+```text
+search_customers(query) -> customers[]
+```
+
+爛工具像黑洞：
+
+```text
+solve_customer_issue(customer_id) -> ???
+```
 
 工具越大，越難測、越難管、越容易被 prompt 牽著走。
 
@@ -272,7 +278,7 @@ Agent 要測三層：
 ---
 
 **References:**
-- OpenAI Cookbook（工具呼叫 / assistants / agent 風格範例）：https://cookbook.openai.com/examples/assistants_api_overview
-- OpenAI 企業情境與內部資料分析工作流（作為「內部資料 agent」脈絡參考）：https://openai.com/index/introducing-chatgpt-enterprise/
-- OWASP LLM Top 10（提示注入、資料外洩、過度權限等）：https://owasp.org/www-project-top-10-for-large-language-model-applications/
-- NIST AI RMF（AI 風險管理框架）：https://www.nist.gov/itl/ai-risk-management-framework
+- [OpenAI Cookbook（工具呼叫 / assistants / agent 風格範例）](https://cookbook.openai.com/examples/assistants_api_overview)
+- [OpenAI 企業情境與內部資料分析工作流（作為「內部資料 agent」脈絡參考）](https://openai.com/index/introducing-chatgpt-enterprise/)
+- [OWASP LLM Top 10（提示注入、資料外洩、過度權限等）](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
+- [NIST AI RMF（AI 風險管理框架）](https://www.nist.gov/itl/ai-risk-management-framework)
