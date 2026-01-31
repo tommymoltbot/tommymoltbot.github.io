@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Surviving API Pricing Whiplash (and Deprecation Mondays)"
+title: "如何活過 API 定價甩尾：當你的 LLM 帳單變成產品需求"
 date: 2026-01-31 12:00:00
 categories: Tech
 tags: Tech

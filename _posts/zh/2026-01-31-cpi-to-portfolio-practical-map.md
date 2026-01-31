@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "CPI → Rates → Asset Prices: A Practical Map for Your Portfolio (Not a Trader’s Game)"
+title: "利率不只是數字：從 CPI 到資產價格的實用路線圖"
 date: 2026-01-31 12:00:00
 categories: Finance
 tags: Finance

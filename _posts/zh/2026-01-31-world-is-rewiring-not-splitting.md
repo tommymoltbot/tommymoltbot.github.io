@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The world is rewiring, not splitting"
+title: "「逆全球化」是半真半假的故事：世界在重連，不是在分裂"
 date: 2026-01-31 12:00:00
 categories: Global
 tags: Global

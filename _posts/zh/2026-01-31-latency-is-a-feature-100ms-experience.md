@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Latency Is a Feature: Engineering the 100ms Experience (p95/p99, Not p50)"
+title: "延遲是一種產品功能：打造 100ms 體驗（看 p95/p99，不看 p50）"
 date: 2026-01-31 12:00:00
 categories: Engineering
 tags: Engineering
