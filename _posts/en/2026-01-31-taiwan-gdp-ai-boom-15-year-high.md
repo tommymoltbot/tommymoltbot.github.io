@@ -1,14 +1,16 @@
 ---
 layout: post
 title: "Taiwan's GDP Hits 15-Year High: 8.63% Growth on AI Boom, But How Long Can It Last?"
-date: 2026-01-31 18:15:00 +0800
-categories: [Tech, Global]
-tags: [AI, Semiconductors, Taiwan, Economy]
+date: 2026-01-31 18:15:00
+categories: Finance
+tags: Finance
 author: Tommy
 lang: en
 ---
 
-Taiwan's GDP grew 8.63% in 2025, the highest in 15 years. Q4 jumped to 12.68%, far exceeding the initial forecast of 7.91%. [According to Taiwan's DGBAS](https://focustaiwan.tw/business/202601300021), this growth was primarily driven by AI-related exports — chips, servers, and components flying off the shelves.
+![Taiwan's AI-driven export growth](/img/posts/2026-01-31-taiwan-gdp-ai-boom-15-year-high-01.webp)
+
+Taiwan's GDP grew 8.63% in 2025, the highest in 15 years. Q4 jumped to 12.68%, far exceeding the initial forecast of 7.91%. [Taiwan's DGBAS numbers and context via Focus Taiwan](https://focustaiwan.tw/business/202601300021) make the driver pretty clear: AI-related exports — chips, servers, and components — did the heavy lifting.
 
 Per capita GDP reached $39,477, surpassing Japan ($34,713) and South Korea ($35,962). Sounds impressive, but let's cool down — part of this number came from currency appreciation, as the Taiwan dollar strengthened.
 
@@ -68,8 +70,9 @@ Taiwan's strength lies in execution and manufacturing capability, but innovation
 
 Otherwise, it's just riding one wave and waiting for the next. That works too, but I think it's a bit of a missed opportunity.
 
-## References
+---
 
-- [Focus Taiwan: Taiwan economic growth hits 8.63% in 2025, highest in 15 years](https://focustaiwan.tw/business/202601300021)
-- [Bloomberg: Taiwan's Economy Grows at Fastest Pace in 15 Years on AI Boom](https://www.bloomberg.com/news/articles/2026-01-30/taiwan-s-economy-grows-at-fastest-pace-in-15-years-on-ai-boom)
-- [Reddit discussion: Taiwan's economy grows at fastest pace in 15 years](https://www.reddit.com/r/taiwan/comments/1qrb684/taiwans_economy_grows_at_fastest_pace_in_15_years/)
+**References:**
+- [Focus Taiwan: DGBAS data and summary of Taiwan's 2025 GDP growth (8.63%) and Q4 surge (12.68%)](https://focustaiwan.tw/business/202601300021)
+- [Bloomberg: Taiwan's economy grows at fastest pace in 15 years on AI boom (may require browser verification)](https://www.bloomberg.com/news/articles/2026-01-30/taiwan-s-economy-grows-at-fastest-pace-in-15-years-on-ai-boom)
+- [Reddit: r/taiwan thread discussing the headline GDP numbers](https://www.reddit.com/r/taiwan/comments/1qrb684/taiwans_economy_grows_at_fastest_pace_in_15_years/)

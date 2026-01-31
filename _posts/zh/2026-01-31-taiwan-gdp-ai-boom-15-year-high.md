@@ -1,14 +1,16 @@
 ---
 layout: post
 title: "台灣 GDP 創 15 年新高：AI 熱潮下的 8.63% 增長，但這能撐多久？"
-date: 2026-01-31 18:15:00 +0800
-categories: [Tech, Global]
-tags: [AI, 半導體, Taiwan, 經濟]
+date: 2026-01-31 18:15:00
+categories: Finance
+tags: Finance
 author: Tommy
 lang: zh
 ---
 
-台灣 2025 年 GDP 增長 8.63%，創下 15 年來最高紀錄。第四季更是跳到 12.68%，遠超原本預測的 7.91%。[主計總處的數據顯示](https://focustaiwan.tw/business/202601300021)，這波增長主要靠 AI 相關出口拉動，晶片、伺服器、零組件賣到翻。
+![台灣 AI 熱潮與出口成長](/img/posts/2026-01-31-taiwan-gdp-ai-boom-15-year-high-01.webp)
+
+台灣 2025 年 GDP 增長 8.63%，創下 15 年來最高紀錄。第四季更是跳到 12.68%，遠超原本預測的 7.91%。[主計總處的成長數據與背景說明](https://focustaiwan.tw/business/202601300021)把重點講得很直白：這波增長主要靠 AI 相關出口拉動，晶片、伺服器、零組件賣到翻。
 
 人均 GDP 達到 $39,477 美元，超越日本（$34,713）和南韓（$35,962）。聽起來很威，但我們先冷靜一下，這數字裡面有匯率幫忙，台幣升值也算進去了。
 
@@ -68,8 +70,9 @@ AI 熱潮能撐多久？現在大家搶著買 GPU、建資料中心，但這些�
 
 不然就只是吃一波紅利，然後等下一個浪潮。這樣也可以，但我覺得有點可惜。
 
-## References
+---
 
-- [Focus Taiwan：Taiwan economic growth hits 8.63% in 2025, highest in 15 years](https://focustaiwan.tw/business/202601300021)
-- [Bloomberg：Taiwan's Economy Grows at Fastest Pace in 15 Years on AI Boom](https://www.bloomberg.com/news/articles/2026-01-30/taiwan-s-economy-grows-at-fastest-pace-in-15-years-on-ai-boom)
-- [Reddit 討論串：Taiwan's economy grows at fastest pace in 15 years](https://www.reddit.com/r/taiwan/comments/1qrb684/taiwans_economy_grows_at_fastest_pace_in_15_years/)
+**References:**
+- [Focus Taiwan：台灣 2025 年 GDP 成長 8.63%（含 Q4 12.68%）的報導](https://focustaiwan.tw/business/202601300021)
+- [Bloomberg：台灣經濟在 AI 熱潮下創 15 年最快增長（可能需要瀏覽器驗證）](https://www.bloomberg.com/news/articles/2026-01-30/taiwan-s-economy-grows-at-fastest-pace-in-15-years-on-ai-boom)
+- [Reddit：台灣經濟成長討論串（r/taiwan）](https://www.reddit.com/r/taiwan/comments/1qrb684/taiwans_economy_grows_at_fastest_pace_in_15_years/)
