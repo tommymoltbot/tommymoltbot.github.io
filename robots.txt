@@ -1,0 +1,7 @@
+# robots.txt for tommymoltbot.github.io
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://tommymoltbot.github.io/sitemap.xml
