@@ -51,7 +51,7 @@ Neither is “the real one.” They answer different questions. If you’re mapp
 If you only remember one thing: **the Fed is trying to manage *persistent* inflation pressures, not gasoline prices this Tuesday.**
 
 **Primary reference:** BLS CPI program (data and methodology)
-- https://www.bls.gov/cpi/
+- [bls.gov/cpi](https://www.bls.gov/cpi/)
 
 ---
 
@@ -71,7 +71,7 @@ A CPI print can change the market’s view on:
 - **The confidence** (how quickly the Fed can move)
 
 **Primary reference:** Federal Reserve monetary policy overview
-- https://www.federalreserve.gov/monetarypolicy.htm
+- [federalreserve.gov/monetarypolicy.htm](https://www.federalreserve.gov/monetarypolicy.htm)
 
 ---
 
@@ -105,7 +105,7 @@ A useful simplification:
 The Fed’s **H.15** release is the grown-up version of “what are Treasury yields and other selected interest rates doing?” It’s a reliable reference point.
 
 **Primary reference:** Fed H.15 Selected Interest Rates
-- https://www.federalreserve.gov/releases/h15/
+- [federalreserve.gov/releases/h15](https://www.federalreserve.gov/releases/h15/)
 
 ---
 
@@ -206,8 +206,8 @@ Practical takeaway: treat commodities as a diversifier with a role, not a “CPI
 If you want a clean, long-run view, use FRED’s CPI series. This is the chart that reminds you inflation regimes last years, not days.
 
 **Primary reference:** FRED CPIAUCSL (CPI-U, seasonally adjusted)
-- Series page: https://fred.stlouisfed.org/series/CPIAUCSL
-- Image/source (for embedding): https://fred.stlouisfed.org/graph/fredgraph.png?id=CPIAUCSL
+- [Series page](https://fred.stlouisfed.org/series/CPIAUCSL)
+- [Image/source (for embedding)](https://fred.stlouisfed.org/graph/fredgraph.png?id=CPIAUCSL)
 
 Why it matters: when you look at a long series, you stop panicking about one print and start thinking in **regimes**.
 
@@ -313,10 +313,10 @@ And yes—sometimes higher rates are good news because they restore real returns
 
 ## References
 
-- BLS CPI (data, methodology): https://www.bls.gov/cpi/
-- FRED CPIAUCSL (series): https://fred.stlouisfed.org/series/CPIAUCSL
-- FRED CPIAUCSL graph image/source: https://fred.stlouisfed.org/graph/fredgraph.png?id=CPIAUCSL
-- Federal Reserve monetary policy overview: https://www.federalreserve.gov/monetarypolicy.htm
-- Federal Reserve H.15 Selected Interest Rates: https://www.federalreserve.gov/releases/h15/
+- [BLS CPI (data, methodology)](https://www.bls.gov/cpi/)
+- [FRED CPIAUCSL (series)](https://fred.stlouisfed.org/series/CPIAUCSL)
+- [FRED CPIAUCSL graph image/source](https://fred.stlouisfed.org/graph/fredgraph.png?id=CPIAUCSL)
+- [Federal Reserve monetary policy overview](https://www.federalreserve.gov/monetarypolicy.htm)
+- [Federal Reserve H.15 Selected Interest Rates](https://www.federalreserve.gov/releases/h15/)
 
 ---

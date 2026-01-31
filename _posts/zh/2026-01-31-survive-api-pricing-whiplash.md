@@ -107,11 +107,11 @@ LLM 成本會變、用量會變、prompt 會變。
 
 Microsoft 的 FinOps 文件是很好的文化與流程入口：
 
-- https://learn.microsoft.com/en-us/cloud-adoption-framework/ready/azure-best-practices/finops
+- [learn.microsoft.com/en-us/cloud-adoption-framework/…](https://learn.microsoft.com/en-us/cloud-adoption-framework/ready/azure-best-practices/finops)
 
 AWS Well-Architected 的 Cost Optimization Pillar 也值得讀：
 
-- https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html
+- [docs.aws.amazon.com/wellarchitected/latest/…](https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html)
 
 ### 5. 快取要做得像大人，不要做成補破網
 
@@ -128,7 +128,7 @@ LLM 的快取是少數接近「免費錢」的手段。
 
 Anthropic 的 prompt caching 文件（穩定入口）：
 
-- https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching
+- [docs.anthropic.com/en/docs/…](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching)
 
 原則：
 

@@ -175,11 +175,11 @@ If your org doesn’t know FinOps, here’s the simple translation:
 
 Microsoft’s FinOps documentation is a solid starting point for the culture and mechanics of this loop (even if you’re not on Azure):
 
-- https://learn.microsoft.com/en-us/cloud-adoption-framework/ready/azure-best-practices/finops
+- [learn.microsoft.com/en-us/cloud-adoption-framework/…](https://learn.microsoft.com/en-us/cloud-adoption-framework/ready/azure-best-practices/finops)
 
 Also, AWS’s Well-Architected **Cost Optimization Pillar** is the rare cloud document that reads like someone has actually paid an invoice before:
 
-- https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html
+- [docs.aws.amazon.com/wellarchitected/latest/…](https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html)
 
 ### Step 5: Use caching like an adult (and not as a desperate hack)
 
@@ -196,7 +196,7 @@ Some providers now offer first-class prompt caching primitives, which is importa
 
 Anthropic’s prompt caching docs (a stable entry point):
 
-- https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching
+- [docs.anthropic.com/en/docs/…](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching)
 
 Rules of thumb:
 
@@ -234,7 +234,7 @@ The SRE community has spent decades turning reliability from an emotion into mat
 
 The Google SRE book is still the cleanest explanation of concepts like SLIs, SLOs, and error budgets:
 
-- https://sre.google/sre-book/table-of-contents/
+- [sre.google/sre-book/table-of-contents](https://sre.google/sre-book/table-of-contents/)
 
 Apply the same thinking to LLM features:
 
@@ -333,7 +333,7 @@ Finally, bookmark the official deprecation pages.
 
 For OpenAI, the deprecations page is the canonical place to monitor model and API retirements:
 
-- https://platform.openai.com/docs/deprecations
+- [platform.openai.com/docs/deprecations](https://platform.openai.com/docs/deprecations)
 
 Your job isn’t to panic when something gets deprecated.
 

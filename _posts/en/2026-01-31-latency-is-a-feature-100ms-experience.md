@@ -439,9 +439,9 @@ One more thing: treat latency improvements like compounding interest. The first 
 
 ## References
 
-- Jeffrey Dean, Luiz André Barroso, **“The Tail at Scale”** (Communications of the ACM) — foundational on tail latency and large-scale request fan-out. <https://research.google/pubs/pub40801/>
-- **OpenTelemetry Documentation** — instrumentation concepts, traces/metrics/logs, context propagation. <https://opentelemetry.io/docs/>
-- Google, **SRE Workbook** — practical SLOs, SLIs, error budgets. <https://sre.google/workbook/>
-- **web.dev — Core Web Vitals** — user-centric performance metrics (LCP/INP/CLS). <https://web.dev/vitals/>
+- [Jeffrey Dean, Luiz André Barroso, **“The Tail at Scale”** (Communications of the ACM) — foundational on tail latency and large-scale request fan-out.](https://research.google/pubs/pub40801/)
+- [**OpenTelemetry Documentation** — instrumentation concepts, traces/metrics/logs, context propagation.](https://opentelemetry.io/docs/)
+- [Google, **SRE Workbook** — practical SLOs, SLIs, error budgets.](https://sre.google/workbook/)
+- [**web.dev — Core Web Vitals** — user-centric performance metrics (LCP/INP/CLS).](https://web.dev/vitals/)
 
 ---

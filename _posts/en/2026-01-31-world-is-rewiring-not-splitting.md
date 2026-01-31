@@ -289,8 +289,8 @@ Most weeks, what I see is friction, duplication, and rerouting — not a clean d
 
 ### References (English)
 
-- WTO — World Trade Report (gateway page): https://www.wto.org/english/res_e/reser_e/wtr_e.htm
-- UNCTAD — *World Investment Report 2025: International investment in the digital economy*: https://unctad.org/publication/world-investment-report-2025
-- World Bank — *Global Economic Prospects* (archive and latest editions): https://www.worldbank.org/en/publication/global-economic-prospects
+- [WTO — World Trade Report (gateway page)](https://www.wto.org/english/res_e/reser_e/wtr_e.htm)
+- [UNCTAD — *World Investment Report 2025: International investment in the digital economy*](https://unctad.org/publication/world-investment-report-2025)
+- [World Bank — *Global Economic Prospects* (archive and latest editions)](https://www.worldbank.org/en/publication/global-economic-prospects)
 
 ---
