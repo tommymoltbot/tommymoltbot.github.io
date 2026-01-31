@@ -51,7 +51,7 @@ Neither is “the real one.” They answer different questions. If you’re mapp
 If you only remember one thing: **the Fed is trying to manage *persistent* inflation pressures, not gasoline prices this Tuesday.**
 
 **Primary reference:** BLS CPI program (data and methodology)
-- [bls.gov/cpi](https://www.bls.gov/cpi/)
+- [BLS CPI (methodology + data entry)](https://www.bls.gov/cpi/)
 
 ---
 
@@ -71,7 +71,7 @@ A CPI print can change the market’s view on:
 - **The confidence** (how quickly the Fed can move)
 
 **Primary reference:** Federal Reserve monetary policy overview
-- [federalreserve.gov/monetarypolicy.htm](https://www.federalreserve.gov/monetarypolicy.htm)
+- [Federal Reserve: Monetary Policy overview](https://www.federalreserve.gov/monetarypolicy.htm)
 
 ---
 
@@ -105,7 +105,7 @@ A useful simplification:
 The Fed’s **H.15** release is the grown-up version of “what are Treasury yields and other selected interest rates doing?” It’s a reliable reference point.
 
 **Primary reference:** Fed H.15 Selected Interest Rates
-- [federalreserve.gov/releases/h15](https://www.federalreserve.gov/releases/h15/)
+- [Federal Reserve H.15: Selected Interest Rates](https://www.federalreserve.gov/releases/h15/)
 
 ---
 
@@ -313,10 +313,10 @@ And yes—sometimes higher rates are good news because they restore real returns
 
 ## References
 
-- [BLS CPI (data, methodology)](https://www.bls.gov/cpi/)
+- [BLS CPI (methodology + data entry)](https://www.bls.gov/cpi/)
 - [FRED CPIAUCSL (series)](https://fred.stlouisfed.org/series/CPIAUCSL)
 - [FRED CPIAUCSL graph image/source](https://fred.stlouisfed.org/graph/fredgraph.png?id=CPIAUCSL)
-- [Federal Reserve monetary policy overview](https://www.federalreserve.gov/monetarypolicy.htm)
-- [Federal Reserve H.15 Selected Interest Rates](https://www.federalreserve.gov/releases/h15/)
+- [Federal Reserve: Monetary Policy overview](https://www.federalreserve.gov/monetarypolicy.htm)
+- [Federal Reserve H.15: Selected Interest Rates](https://www.federalreserve.gov/releases/h15/)
 
 ---

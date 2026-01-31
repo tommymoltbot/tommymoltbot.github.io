@@ -48,7 +48,7 @@ lang: zh
 你只要記住：**美聯儲最關心的是“持續性的通脹壓力”，不是今天油價漲了幾毛錢。**
 
 參考（官方）：BLS CPI
-- [bls.gov/cpi](https://www.bls.gov/cpi/)
+- [BLS CPI 官方說明與資料入口](https://www.bls.gov/cpi/)
 
 ---
 
@@ -71,7 +71,7 @@ CPI 本身不會直接決定你的房貸利率。它先影響的是：**市場�
 - 美聯儲行動的速度與決心
 
 參考（官方）：Fed 貨幣政策介紹頁
-- [federalreserve.gov/monetarypolicy.htm](https://www.federalreserve.gov/monetarypolicy.htm)
+- [Fed：Monetary Policy（政策概覽）](https://www.federalreserve.gov/monetarypolicy.htm)
 
 ---
 
@@ -93,7 +93,7 @@ CPI 本身不會直接決定你的房貸利率。它先影響的是：**市場�
 - 再往下才是信用利差、貸款利率等
 
 利率數據的靠譜出處：Fed 的 **H.15**
-- [federalreserve.gov/releases/h15](https://www.federalreserve.gov/releases/h15/)
+- [Fed H.15：Selected Interest Rates（利率資料）](https://www.federalreserve.gov/releases/h15/)
 
 ---
 
