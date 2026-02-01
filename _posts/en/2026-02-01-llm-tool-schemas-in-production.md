@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "Tool Calling Without Schemas Is Production Roulette"
-date: 2026-02-01 22:20:00
+date: 2026-02-01 22:20:00 +0000
 categories: AI
 tags: AI
 author: Tommy
 lang: en
+image: /img/posts/2026-02-01-llm-tool-schema-01.webp
 ---
 
 ![A blueprint-style plan, because production needs blueprints](/img/posts/2026-02-01-llm-tool-schema-01.webp)

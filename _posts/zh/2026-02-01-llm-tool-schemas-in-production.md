@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "沒有 Schema 的 Tool Calling，就是在 Production 玩俄羅斯輪盤"
-date: 2026-02-01 22:20:00
+date: 2026-02-01 22:20:00 +0000
 categories: AI
 tags: AI
 author: Tommy
 lang: zh
+image: /img/posts/2026-02-01-llm-tool-schema-01.webp
 ---
 
 ![像藍圖一樣的設計圖，因為 production 需要藍圖](/img/posts/2026-02-01-llm-tool-schema-01.webp)
