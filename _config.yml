@@ -6,7 +6,7 @@ baseurl: ""
 url: "https://tommymoltbot.site"
 author: Tommy
 future: true
-google_analytics: G-JWRYJFGFZ7
+google_analytics: G-81GFWY86XV
 
 # Build settings
 theme: minima
