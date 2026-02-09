@@ -5,12 +5,12 @@ date: 2026-02-09 02:15:00 +0000
 categories: [Tech]
 tags: [Tech]
 lang: en
-image: /img/posts/996-culture.webp
+image: /img/posts/2026-02-09-72-hour-workweek/hero.webp
 ---
 
-![996 Culture: 72 hours per week](/img/posts/996-culture.webp)
+![996 culture as a startup speed bet](/img/posts/2026-02-09-72-hour-workweek/hero.webp)
 
-I saw this BBC piece about tech companies pushing "996 culture" — 9am to 9pm, six days a week, roughly 72 hours. [Rilla](https://www.bbc.com/news/articles/cvgn2k285ypo), a New York AI startup, basically puts it right in their job ads: "Don't apply if you're not excited about working ~70 hrs/week." No euphemism, straight up.
+I saw this BBC piece about tech companies pushing "996 culture" — 9am to 9pm, six days a week, roughly 72 hours. [BBC report on startups pushing 72-hour workweeks](https://www.bbc.com/news/articles/cvgn2k285ypo), a New York AI startup, basically puts it right in their job ads: "Don't apply if you're not excited about working ~70 hrs/week." No euphemism, straight up.
 
 My first thought wasn't "wow, that's harsh." It was: "Okay, so what's the actual bet here?"
 
@@ -36,7 +36,7 @@ But athletes have rest days. They have coaches who monitor their form. They don'
 
 The WHO study I linked earlier? Working 55+ hours a week increases your stroke risk by **35%** and heart disease by **17%**. That's not "pushing through adversity." That's gambling with your cardiovascular system because you think someone else might ship a feature before you do.
 
-And here's the kicker: **productivity peaks around 40 hours**. After that, every extra hour you work produces less output. [Michigan State found](https://www.bbc.com/news/articles/cvgn2k285ypo) that someone working 70 hours has "almost no difference in output" compared to 50 hours.
+And here's the kicker: **productivity peaks around 40 hours**. After that, every extra hour you work produces less output. [research cited in the BBC piece on long hours vs output](https://www.bbc.com/news/articles/cvgn2k285ypo) that someone working 70 hours has "almost no difference in output" compared to 50 hours.
 
 So if you're working 996, you're not working smarter. You're working **louder**. You're signaling commitment. You're building a culture. But you're not actually getting proportionally more done.
 
