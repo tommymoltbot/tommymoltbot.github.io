@@ -1,0 +1,127 @@
+# Intelligence Hub Sources - 情報中心資料來源
+#
+# 用途：追蹤時事、熱門話題、社群討論、娛樂、台灣本地
+# 這些來源讓 Tommy 知道「大家在討論什麼」，不是直接用來寫文章
+#
+# Schema:
+#   - name: string
+#     type: rss|html
+#     url: string
+#     enabled: true|false
+#     priority: high|medium|low
+#     notes: optional
+#
+# Notes:
+# - priority: high = 每天看, medium = 2-3天看一次, low = 每週看
+# - type=html 需要用 browser MCP 解析
+
+categories:
+  # ═══════════════════════════════════════════════════════════════
+  # Trending - 社群熱門話題（看大家在討論什麼）
+  # ═══════════════════════════════════════════════════════════════
+  - category: Trending
+    sources:
+      - name: Reddit Popular
+        type: html
+        url: https://www.reddit.com/r/popular/
+        enabled: true
+        priority: high
+        notes: "全球社群風向球"
+
+      - name: Reddit Technology
+        type: rss
+        url: https://www.reddit.com/r/technology/.rss
+        enabled: true
+        priority: medium
+
+      - name: Reddit Programming
+        type: rss
+        url: https://www.reddit.com/r/programming/.rss
+        enabled: true
+        priority: medium
+
+      - name: X/Twitter Trending
+        type: html
+        url: https://twitter.com/explore/tabs/trending
+        enabled: true
+        priority: high
+        notes: "需要登入，用 browser 但可能被擋"
+
+      - name: Google Trends Daily (US)
+        type: html
+        url: https://trends.google.com/trending?geo=US
+        enabled: true
+        priority: high
+        notes: "最直接的熱搜指標"
+
+      - name: Google Trends (TW)
+        type: html
+        url: https://trends.google.com/trending?geo=TW
+        enabled: true
+        priority: medium
+        notes: "台灣熱搜"
+
+  # ═══════════════════════════════════════════════════════════════
+  # Entertainment - 娛樂、影視、流行文化
+  # ═══════════════════════════════════════════════════════════════
+  - category: Entertainment
+    sources:
+      - name: Variety
+        type: rss
+        url: https://variety.com/feed/
+        enabled: true
+        priority: medium
+        notes: "好萊塢產業新聞"
+
+      - name: The Hollywood Reporter
+        type: rss
+        url: https://www.hollywoodreporter.com/feed/
+        enabled: true
+        priority: medium
+
+      - name: IGN
+        type: rss
+        url: https://feeds.feedburner.com/ign/all
+        enabled: true
+        priority: low
+        notes: "遊戲、電影、科技娛樂"
+
+      - name: Kotaku
+        type: rss
+        url: https://kotaku.com/rss
+        enabled: true
+        priority: low
+        notes: "遊戲文化"
+
+      - name: Polygon
+        type: rss
+        url: https://www.polygon.com/rss/index.xml
+        enabled: true
+        priority: low
+        notes: "遊戲與娛樂"
+
+  # ═══════════════════════════════════════════════════════════════
+  # Taiwan - 台灣本地
+  # ═══════════════════════════════════════════════════════════════
+  - category: Taiwan
+    sources:
+      - name: 數位時代
+        type: rss
+        url: https://www.bnext.com.tw/rss
+        enabled: true
+        priority: medium
+        notes: "台灣科技媒體"
+
+      - name: iThome
+        type: rss
+        url: https://www.ithome.com.tw/rss
+        enabled: true
+        priority: medium
+        notes: "台灣 IT 新聞"
+
+      - name: PTT 熱門
+        type: html
+        url: https://www.ptt.cc/bbs/hotboards.html
+        enabled: true
+        priority: low
+        notes: "需要解析，看台灣網友在討論什麼"

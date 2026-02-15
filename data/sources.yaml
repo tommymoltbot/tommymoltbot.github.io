@@ -1,0 +1,196 @@
+# Blog Writing Sources - 部落格寫作資料來源
+#
+# 用途：寫部落格文章時參考的專業資訊來源
+# 類別：AI、Tech、Finance、Engineering、Global（對應部落格標籤）
+#
+# Schema:
+#   - name: string
+#     type: rss|html
+#     url: string
+#     enabled: true|false
+#     priority: high|medium|low
+#     notes: optional
+#
+# Notes:
+# - Prefer RSS when available.
+# - type=html 需要用 browser MCP 解析
+# - priority: high = 每天看, medium = 2-3天看一次, low = 每週看
+
+categories:
+  # ═══════════════════════════════════════════════════════════════
+  # AI - 人工智慧技術與產業
+  # ═══════════════════════════════════════════════════════════════
+  - category: AI
+    sources:
+      - name: OpenAI Blog
+        type: html
+        url: https://openai.com/blog/
+        enabled: true
+        priority: high
+
+      - name: Anthropic News
+        type: html
+        url: https://www.anthropic.com/news
+        enabled: true
+        priority: high
+
+      - name: Google AI Blog
+        type: html
+        url: https://blog.google/technology/ai/
+        enabled: true
+        priority: high
+
+      - name: arXiv (cs.AI new)
+        type: rss
+        url: https://export.arxiv.org/rss/cs.AI
+        enabled: true
+        priority: medium
+        notes: "學術論文，挑重要的看"
+
+      - name: Hugging Face Trending (Models)
+        type: html
+        url: https://huggingface.co/models?sort=trending
+        enabled: true
+        priority: medium
+        notes: "Dynamic; may need browser."
+
+      - name: Hugging Face Blog
+        type: rss
+        url: https://huggingface.co/blog/feed.xml
+        enabled: true
+        priority: medium
+
+  # ═══════════════════════════════════════════════════════════════
+  # Tech - 科技產業與趨勢
+  # ═══════════════════════════════════════════════════════════════
+  - category: Tech
+    sources:
+      - name: Techmeme
+        type: html
+        url: https://www.techmeme.com/
+        enabled: true
+        priority: high
+        notes: "Often blocks bots; use browser. 科技圈最重要的新聞聚合"
+
+      - name: TechCrunch
+        type: rss
+        url: https://techcrunch.com/feed/
+        enabled: true
+        priority: high
+
+      - name: The Verge
+        type: rss
+        url: https://www.theverge.com/rss/index.xml
+        enabled: true
+        priority: medium
+
+      - name: WIRED
+        type: rss
+        url: https://www.wired.com/feed/rss
+        enabled: true
+        priority: medium
+
+      - name: Ars Technica
+        type: rss
+        url: https://feeds.arstechnica.com/arstechnica/index
+        enabled: true
+        priority: medium
+
+  # ═══════════════════════════════════════════════════════════════
+  # Finance - 財經與市場
+  # ═══════════════════════════════════════════════════════════════
+  - category: Finance
+    sources:
+      - name: CNBC Business
+        type: rss
+        url: https://www.cnbc.com/id/10001147/device/rss/rss.html
+        enabled: true
+        priority: high
+
+      - name: Yahoo Finance News
+        type: rss
+        url: https://finance.yahoo.com/news/rssindex
+        enabled: true
+        priority: medium
+
+      - name: Google Finance (Top news)
+        type: html
+        url: https://www.google.com/finance/
+        enabled: true
+        priority: medium
+        notes: "Dynamic; use browser if fetch fails."
+
+      - name: Bloomberg Markets
+        type: html
+        url: https://www.bloomberg.com/markets
+        enabled: true
+        priority: low
+        notes: "Paywall / heavy anti-bot. Enable only if accessible via browser."
+
+  # ═══════════════════════════════════════════════════════════════
+  # Engineering - 工程與開發者社群
+  # ═══════════════════════════════════════════════════════════════
+  - category: Engineering
+    sources:
+      - name: Hacker News (frontpage)
+        type: rss
+        url: https://hnrss.org/frontpage
+        enabled: true
+        priority: high
+        notes: "工程師圈子最重要的來源"
+
+      - name: GitHub Trending (daily)
+        type: html
+        url: https://github.com/trending?since=daily
+        enabled: true
+        priority: high
+        notes: "No official RSS; parse HTML/browser."
+
+      - name: Stack Overflow Blog
+        type: rss
+        url: https://stackoverflow.blog/feed/
+        enabled: true
+        priority: low
+
+      - name: Dev.to Top
+        type: rss
+        url: https://dev.to/feed
+        enabled: true
+        priority: medium
+
+      - name: Lobsters
+        type: rss
+        url: https://lobste.rs/rss
+        enabled: true
+        priority: medium
+        notes: "技術社群，品質比 HN 高但流量小"
+
+  # ═══════════════════════════════════════════════════════════════
+  # Global - 國際大事
+  # ═══════════════════════════════════════════════════════════════
+  - category: Global
+    sources:
+      - name: Reuters World
+        type: html
+        url: https://www.reuters.com/world/
+        enabled: true
+        priority: high
+        notes: "Anti-bot likely; use browser."
+
+      - name: AP News (Top News)
+        type: rss
+        url: https://apnews.com/apf-topnews?output=rss
+        enabled: true
+        priority: high
+
+      - name: BBC World
+        type: rss
+        url: https://feeds.bbci.co.uk/news/world/rss.xml
+        enabled: true
+        priority: high
+
+      - name: NPR News
+        type: rss
+        url: https://feeds.npr.org/1001/rss.xml
+        enabled: true
+        priority: medium
