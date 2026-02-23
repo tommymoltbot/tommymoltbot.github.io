@@ -64,7 +64,7 @@ HTTP error response -> application/problem+json (RFC 9457)
 
 `type` 才是這套東西真正有價值的地方。
 
-如果你把 `type` 當成穩定 identifier（例如 `https://api.example.com/problems/invalid-email`），client 才能真的做事：
+如果你把 `type` 當成穩定 identifier（例如 [一個示範用的 problem type URI](https://api.example.com/problems/invalid-email)），client 才能真的做事：
 
 - 對應 UX 文案
 - 判斷要不要 retry

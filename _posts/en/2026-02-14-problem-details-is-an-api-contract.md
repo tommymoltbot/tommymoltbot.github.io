@@ -63,7 +63,7 @@ Which is basically: “we shipped a nicer error string.”
 
 The `type` field is where the leverage lives.
 
-If you treat `type` as a stable identifier (think: `https://api.example.com/problems/invalid-email`), then clients can:
+If you treat `type` as a stable identifier (think: `[an example problem type URI](https://api.example.com/problems/invalid-email)`), then clients can:
 
 - map it to UX copy
 - decide whether to retry

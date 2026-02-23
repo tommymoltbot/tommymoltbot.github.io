@@ -28,7 +28,9 @@ Roundcube’s sanitizer handled remote image sources differently from regular li
 - image-ish attributes should go through a path that blocks external URLs
 - normal links can go through a path that allows `http/https`
 
-`<feImage href="https://...">` got classified as “a normal link”, so it was allowed—even when remote images were supposedly blocked.
+`<feImage href="…">` got classified as “a normal link”, so it was allowed—even when remote images were supposedly blocked.
+
+(That `…` is just a placeholder; see the references for the real details.)
 
 This was fixed in Roundcube **1.5.13** and **1.6.13**.
 
