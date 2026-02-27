@@ -1,95 +1,83 @@
 ---
 layout: post
-title: "parakeet.cpp：我願意相信的那種 AI 專案（因為它真的能用 C++ 出貨）"
-date: 2026-02-27 05:00:00
+title: "parakeet.cpp：我開始覺得『原生推論』會回來了"
+date: 2026-02-27 11:00:00
 categories: Engineering
 tags: Engineering
 author: Tommy
 lang: zh
 ---
 
-![parakeet.cpp on GitHub](/img/posts/2026-02-27-parakeet-cpp-01.webp)
+![parakeet.cpp on-device ASR](/img/posts/2026-02-27-parakeet-cpp-on-device-asr-01.webp)
 
-「on-device AI」這個詞我已經聽到有點麻痺了。
+最近我越來越常看到一種現象：大家嘴上說要「AI 功能」，但真的買單的通常是那種 **很無聊、很務實、延遲夠低** 的能力。
 
-很多時候它的真實樣子是：一個 Python notebook + 一張 latency 圖表 + 然後你發現要跑起來得裝 ONNX runtime、裝一堆套件、還要祈禱你的環境剛好跟作者一樣。
+語音辨識就是典型。
 
-所以我看到 **parakeet.cpp** 的第一反應其實是：欸，終於有人把它做成**可以被嵌進產品**的形狀了。
+所以我看到 *parakeet.cpp* 的時候有點被戳到：這是一個把 NVIDIA 的 Parakeet 語音辨識模型搬到 **純 C++** 裡跑的專案，macOS / Apple Silicon 還能直接吃 Metal GPU，加速是靠它自己的張量庫 Axiom。
 
-它是一個用 C++20 寫的推論實作，目標是跑 NVIDIA 的 Parakeet 語音轉文字（ASR）模型，而且主打：
-- 不需要 Python runtime
-- 不需要 ONNX runtime
-- 在 Apple Silicon 上可以選擇走 **Metal GPU 加速**（透過 Axiom 這個輕量 tensor library）
+重點其實不是「又一個模型」。重點是：**原生推論（native inference）好像真的開始變得可行**，而且做的人是在替「部署」而不是替「demo」在優化。
 
-這種「出貨形狀」比大家願意承認的還重要。
+## 這個專案有意思的地方
 
-## 它到底是什麼（講人話版）
+大多數 ML 專案卡死不是因為模型不 work，而是卡在「那你要怎麼上線」：
+- Python 版本地獄
+- 一堆二進位輪子
+- ONNX runtime（看情況）
+- GPU 驅動各種玄學
+- latency 抖一下就沒人知道為什麼
 
-- 語音轉文字（ASR）模型（Parakeet 家族）
-- 一套 C++ 推論堆疊
-- Apple Silicon 可選 GPU 路徑（Metal / MPS）
-- CLI + 小而清楚的 API
+*parakeet.cpp* 走的是完全相反路線：**一個原生 codebase，依賴極少**，而且很明顯是以 on-device 的速度當第一優先。
 
-README 的 quick start 基本上長這樣：
+從 README 看起來，它的 high-level API 幾乎就是：
 
-```cpp
-parakeet::Transcriber t("model.safetensors", "vocab.txt");
-t.to_gpu(); // optional — Metal acceleration
-
-auto result = t.transcribe("audio.wav");
+```text
+parakeet::Transcriber(model_path, vocab_path)
+Transcriber::to_gpu() -> void
+Transcriber::transcribe(wav_path) -> Transcript
 ```
 
-我喜歡這段的原因很簡單：它不像「我這台機器跑得動」的 demo，它是你可以拿去接到系統裡的東西。
+這種 API 你才有機會真的塞進產品裡。
 
-## 我覺得這件事為什麼比看起來更有價值
+## Metal + unified memory：這點其實很關鍵
 
-### 1) on-device ASR 是隱私特性，不只是延遲特性
+如果你以前在 macOS 上玩過「GPU 加速」，你大概知道很多時候真正的成本不是算力，而是 CPU/GPU 之間一直在 memcpy。
 
-音訊留在本機，你會得到：
-- 合規跟法務壓力直接少一大截
-- 少掉很多「不小心把原始音訊記錄/上傳」的事故面
-- 威脅模型比較單純
+Axiom 很用力地吃 Apple Silicon 的 unified memory 特性：CPU tensor / GPU tensor 的切換有機會只是一個 *device tag* 的變化，而不是搬資料。
 
-延遲當然很好，但「不用把聲音送去別人的 server」才是核心。
+這不是什麼魔法，但對低延遲的 on-device pipeline 來說，這種設計就是差很多。
 
-### 2) 依賴項的故事，其實就是產品
+## 我覺得它反映了一個更大的趨勢
 
-parakeet.cpp 很明確地選了一條路：不要重的 runtime。
+我不覺得大家都會突然開始用 C++ 重寫推論。
 
-結果就是：
-- 更容易塞進 app
-- production 裡的變數更少
-- 少掉很多 Python wheel / 相依地獄
+但我覺得越來越多團隊會開始問一個很直白的問題：
 
-這種工程味，我反而比較信。
+> 「這個功能真的需要打到 server 嗎？」
 
-### 3) 效能數字逼你面對一個現實：你到底把成本花在哪
+以 ASR 來說，本地推論能換到的東西很難用 PR 話術替代：
+- **延遲**：能 streaming 的轉錄，體驗上是完全不同產品。
+- **隱私**：你可以很硬地說「音訊不離開裝置」。
+- **成本**：沒有 per-minute 稅。
 
-README 放了不少 Apple Silicon GPU vs CPU 的效能數字（尤其是 encoder 部分）。
+而且一旦你把 ASR 做成本地，你就會想順便把後面那串也做掉：diarization、keyword spotting、甚至 local intent routing。
 
-就算你把它打個折，方向還是很清楚：
-- 大量轉錄的情境，算力選擇是成本決策
-- 端側轉錄的情境，算力選擇是 UX 決策
+## 我還是保留的地方
 
-## 我會注意的 tradeoff（因為一定有）
+這條路也不是沒坑，至少兩個會直接把它打爆：
 
-- **權重來源與驗證**：用 `safetensors` 很好，但你仍然要定義「權重從哪來」以及「怎麼驗證未被篡改」。
-- **準確率 vs 速度的旋鈕**：專案提供不同 decoder 選項是加分，但你一定要用自己的音訊資料驗證（口音、噪音、專有名詞）。
-- **實際上線的工程細節**：C++ library 好出貨，但你還是需要可重現建置、CI、以及 CPU/GPU fallback 的策略。
+1) **記憶體壓力**。模型不是小東西，「能在我 M3 Pro 跑」跟「能在一般用戶 8GB、Chrome 開 37 個分頁時跑」是兩回事。
 
-我不是說它已經「完美」。
+2) **準確度 vs. 方便性**。runtime 做得乾淨會讓部署簡單很多，但它不會自動解決「到底準不準」的問題，尤其是多語言跟嘈雜麥克風環境。
 
-我只是覺得，這是少數一開始就用 production constraint 來設計的 repo，而不是用 demo constraint。
+但方向我覺得是對的。
 
-## 如果我要導入，我第一步會做什麼
-
-1. 用 CLI 跑幾段我自己的真實錄音（會議、街噪、不同麥克風）
-2. 量 **end-to-end** latency（I/O + 特徵抽取 + encoder + decode），不要只看單一 layer
-3. 先定義我的產品需要什麼（timestamps？diarization？streaming？）再決定要不要追「炫的功能」
+看到這種專案，我的解讀是：我們可能正從「LLM everywhere」慢慢回到「選對模型，然後把 runtime 工程做到極致」。老實說，軟體本來就應該這樣。
 
 ---
 
 **References:**
-- [parakeet.cpp 專案庫（C++ Parakeet ASR 推論）](https://github.com/Frikallo/parakeet.cpp)
-- [NVIDIA Parakeet 模型集合頁（官方模型家族入口）](https://huggingface.co/collections/nvidia/parakeet-702d03111484ef)
-- [Axiom tensor library（parakeet.cpp 使用的依賴）](https://github.com/noahkay13/axiom)
+- [parakeet.cpp 專案（C++ 跑 Parakeet ASR + Metal 加速）](https://github.com/Frikallo/parakeet.cpp)
+- [Axiom 張量庫（C++ tensors + Metal + unified memory）](https://github.com/Frikallo/axiom)
+- [Hacker News 討論串（關於部署與延遲的留言）](https://news.ycombinator.com/item?id=47176239)
+- [Hugging Face 的 NVIDIA Parakeet 模型卡（例：parakeet-ctc-0.6b）](https://huggingface.co/nvidia/parakeet-ctc-0.6b)
