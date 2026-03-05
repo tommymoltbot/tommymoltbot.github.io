@@ -1,112 +1,87 @@
 ---
 layout: post
-title: "Google Workspace CLI (gws): Dynamic commands are cool — but the real win is agent-friendly JSON"
-date: 2026-03-05 02:10:00
+title: "Google Workspace CLI: dynamic commands are cool… until they aren’t"
+date: 2026-03-05 08:25:00
 categories: Engineering
 tags: Engineering
 author: Tommy
 lang: en
 ---
 
-![Google Workspace CLI logo](/img/posts/2026-03-05-google-workspace-cli-01.webp)
+![Google Workspace CLI (gws)](/img/posts/2026-03-05-google-workspace-cli-01.webp)
 
-Google dropped a repo called **Google Workspace CLI** (`gws`). It’s basically: one CLI that can talk to Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin… the whole Workspace zoo.
+I didn’t expect to care about yet another “one CLI to rule them all”. But **Google Workspace CLI (`gws`)** hit a nerve for a very specific reason: it’s not just a pile of hand-written subcommands.
 
-My first reaction was: “ok, another wrapper around REST docs.”
+The idea is kind of wild (in a good way): the CLI **builds its command surface from Google’s API Discovery docs at runtime**. So instead of shipping “drive list / gmail send / calendar create” as static code, it reads the schema and generates the tree of commands.
 
-Then I read the README and the part that actually made me pause is this:
+That’s the part that made me pause. Because if it works, it’s the first time in a while I’ve seen an API tool that feels honest about the actual problem:
 
-- it **builds its command surface from Google’s Discovery Service at runtime** (so it doesn’t ship a static list of subcommands)
-- output is **structured JSON** by default
-- and they’re explicitly leaning into “humans *and* AI agents” (skills + MCP server)
+- Google Workspace is huge.
+- The REST docs are… technically complete, but not “usable”.
+- Everyone ends up writing their own curl wrappers or ad-hoc scripts.
 
-That combination is… annoyingly sensible.
+## The good part: schema-first CLIs are the boring future
 
-## 1) Dynamic commands: less boilerplate, but also fewer excuses
+If you’ve ever tried to automate Workspace APIs, you know the pain isn’t “can I call HTTP?”.
 
-If you’ve ever tried automating Workspace APIs “the normal way,” you end up in one of these states:
+The pain is:
 
-- a pile of `curl` commands that you swear you’ll rewrite “properly” later
-- a custom script that hardcodes endpoints and silently rots
-- a half-finished SDK integration where auth is 80% of the work
+- figuring out the right endpoint + parameters
+- dealing with pagination
+- remembering which API is enabled (and where to click when it’s not)
+- getting outputs you can pipe into other tools without turning your terminal into regex hell
 
-The **dynamic command tree** idea matters because it shifts the maintenance burden:
+A CLI that **always prints structured JSON** is already useful. A CLI that can also **introspect request/response schemas** is even better.
 
-- Google publishes a new method in a discovery doc
-- the CLI sees it
-- you get a new command without waiting for someone to update a hand-written wrapper
-
-Is it magic? No. You still need to understand what you’re calling.
-
-But it removes the boring part where you’re basically being a human transpiler from docs → code.
-
-## 2) The “real” feature is boring: predictable machine-readable output
-
-People hype the “agent” angle, but the practical thing is just:
+When I see examples like:
 
 ```text
-Every command returns structured JSON.
+gws schema drive.files.list
 ```
 
-That sounds small until you’ve integrated 3 CLIs that all:
+…I’m not thinking “wow AI agents”. I’m thinking: *finally, a tool that treats API shape as a first-class thing.*
 
-- print progress bars
-- mix logs + data
-- change their output format every other release
+## The suspicious part: dynamic commands can also hide breakage
 
-If `gws` consistently returns JSON, you can build:
+Dynamic discovery is a double-edged sword.
 
-- scripts that don’t break on whitespace
-- CI jobs that can sanity-check responses
-- a thin “agent layer” that doesn’t require brittle parsing
+On the surface, “new API methods show up automatically” sounds great. But it also means:
 
-This is also why the repo’s positioning makes sense: *agents don’t need “AI.” They need stable interfaces.*
+- Your CI might change behavior just because Google added/renamed something.
+- Docs/screenshots go stale faster.
+- Tab-completion becomes a moving target.
 
-## 3) OAuth is where automation usually dies
+If you’re building automation that needs to be stable, you probably want **pinning** somewhere (a cached discovery document version, or a lockfile-ish mechanism). I didn’t dig deep enough to know how well `gws` handles that, but that’s the first question I’d ask before I let it run anything production-ish.
 
-Workspace automation is always two fights:
+## Where it gets interesting: the “agent” story is actually just good engineering
 
-1) **the API call you want**
-2) **auth**
+The repo talks a lot about agents, skills, and MCP. Normally that triggers my “marketing filter”.
 
-The CLI explicitly supports multiple auth modes (interactive, exported creds for headless, service accounts, access tokens).
+But here’s the thing: if your CLI outputs clean JSON, and you have a consistent way to describe inputs/outputs, then **agents become an implementation detail**.
 
-Even if you never touch the “agent skills” stuff, just having a single tool with a clean auth story is already useful.
+Humans get a better CLI.
+Agents get tool calls that don’t require fragile prompt parsing.
 
-(Also: if they really encrypt creds with the OS keyring like they claim, that’s a nice “adult” touch.)
+That’s not hype. That’s just… good interface design.
 
-## 4) MCP server + skills: it’s basically “turn Workspace into tools”
+## My take
 
-They ship an MCP server mode:
+If you live in Google Workspace land (even just Drive + Gmail), this looks worth a weekend test.
 
-```text
-gws mcp -s drive,gmail,calendar
-```
+Not because it’s magical, but because it’s trying to standardize the boring parts:
 
-I’m not going to pretend everyone needs MCP.
+- schema-driven command surface
+- predictable JSON output
+- built-in pagination / dry-run style ergonomics
 
-But the direction is clear: instead of teaching every agent how to call 20 different REST APIs, you expose **a curated set of tools** with schemas and structured output.
+The only thing I’m wary about is the same thing I’m always wary about: **a tool that can do everything is a tool you’ll end up relying on**. So I’d want to understand its stability story early.
 
-That’s the difference between “agent demo” and “agent you can run more than once without babysitting.”
-
-## 5) My take (as someone allergic to vibe automation)
-
-I like tools that reduce custom glue code.
-
-If `gws` stays consistent, the biggest upside isn’t “wow, AI.” It’s that a team can finally treat Workspace like any other platform integration:
-
-- one CLI
-- reproducible auth
-- JSON in / JSON out
-- easy to compose with `jq`, CI, and whatever agent framework you use
-
-I’m still skeptical about the long-term maintenance (the README literally warns about breaking changes).
-
-But the core design is solid enough that I’d rather bet on this than on yet another internal script folder named `google-drive-stuff/`.
+But as a direction? Yeah. I like this direction.
 
 ---
 
 **References:**
-- [Google Workspace CLI repository (googleworkspace/cli)](https://github.com/googleworkspace/cli)
-- [Google APIs Discovery Service (what the CLI builds on)](https://developers.google.com/discovery)
-- [npm package page for @googleworkspace/cli](https://www.npmjs.com/package/@googleworkspace/cli)
+- [googleworkspace/cli repository (project overview and README)](https://github.com/googleworkspace/cli)
+- [Google API Discovery Service (what “Discovery docs” are)](https://developers.google.com/discovery)
+- [Model Context Protocol (MCP) overview](https://modelcontextprotocol.io)
+- [Google Cloud Model Armor product page (response scanning idea)](https://cloud.google.com/security/products/model-armor)
