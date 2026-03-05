@@ -1,125 +1,101 @@
 ---
 layout: post
-title: "asyncio.Condition 會漏掉狀態轉換：不是理論問題，是你真的會踩到的那種"
-date: 2026-03-05 05:00:00
+title: "asyncio.Condition 的 lost update：你以為等得到的狀態，其實會被跳過"
+date: 2026-03-05 11:00:00
 categories: Engineering
 tags: Engineering
 author: Tommy
 lang: zh
 ---
 
-![一個狀態機悄悄滑過你的 waiters](/img/posts/2026-03-05-asyncio-lost-updates-01.webp)
+![asyncio lost update cover](/img/posts/2026-03-05-asyncio-lost-updates-01.webp)
 
-我以前一直把 `asyncio.Condition` 當成「Event 進化版」：
+我覺得很多 asyncio 的坑，最討厭的不是「很難」，而是「看起來很對」。
 
-- `asyncio.Event` 太像一個 bit（set / unset）
-- 但 `Condition` 可以等 predicate，看起來就很“正確”
+`asyncio.Condition` 就是其中一個：你寫了 `wait_for(lambda: state == "closing")`，心裡想說「好，等到 closing 再做收尾」。結果壓力一上來，那個收尾永遠沒跑到。
 
-直到我遇到一種很煩、但很真實的 bug：**狀態真的變過了，但等待的人永遠沒看見**。
+不是 Condition 壞掉，它只是很老實：它叫醒你之後，要你用**當下的值**再重新檢查一次 predicate。如果狀態變太快，你等的那個「中間狀態」可能早就過了。
 
-不是多執行緒 data race。
-也不是 lock 沒鎖。
-就只是 event loop 單執行緒 + notify 的語意，讓你在現實世界會漏掉「中間那一瞬間」。
+## 這個 bug 長什麼樣子
 
-## 問題長相：你在等一個「會瞬間閃過」的狀態
+假設你在管理連線狀態：
 
-很多 async 系統其實都是小型 state machine：
+```python
+# disconnected -> connecting -> connected -> closing -> closed
+state = "disconnected"
+condition = asyncio.Condition()
 
-```text
-disconnected -> connecting -> connected -> closing -> closed
+async def set_state(new_state: str):
+    global state
+    async with condition:
+        state = new_state
+        condition.notify_all()
+
+async def drain_requests():
+    async with condition:
+        await condition.wait_for(lambda: state == "closing")
+    print("draining pending requests")
 ```
 
-而且我們常常不是想等「最後變成 closed」，而是想等「進入 closing 的那一刻」，好做 cleanup。
+如果狀態跳得很快：
 
-例如：連線開始關閉時把 in-flight work drain 掉。
-
-但如果 `closing` 很快就跳到 `closed`（同一個 tick 內 cleanup + teardown 全跑完），事情就開始怪了。
-
-## Polling 很醜，但它不太會騙你
-
-你可以一直 loop：
-
-```text
-while state != "closing":
-  await sleep(...)
+```python
+await set_state("closing")  # notify_all() 只是排隊叫醒大家
+await set_state("closed")   # 下一行又改掉了
 ```
 
-這招確實能看到 `closing`。
+在單執行緒 event loop 裡，「叫醒」比較像是：*你晚點有空再來跑*。
 
-代價也很明顯：
-- sleep 太短浪費 CPU
-- sleep 太長增加延遲
-- 每個 consumer 都要自己寫一份「我知道很爛但先這樣」的程式
+所以你的等待者真的開始跑的時候，狀態可能已經是 `"closed"`。predicate 失敗 → 回去睡 → 然後你就等不到 `"closing"` 了。
 
-## `asyncio.Event`：好用，但它是 1 bit
+如果 `closing` 是你唯一會做「flush / emit metrics / 送最後一包訊息」的時機，這種 bug 就很致命，而且超級難在開發環境重現。
 
-`Event` 的語意是：某件事發生了，大家醒來。
+## 用 Event 補洞，其實是把洞搬到別的地方
 
-```text
-await closing_event.wait()
-```
+常見的修法是加一堆 `asyncio.Event`：
 
-但你如果有 5 種狀態、N 種等待條件，最後你會得到一個「事件動物園」：
-- connected_event
-- closing_event
-- not_disconnected_event（還要反邏輯）
+- `connected_event`
+- `closing_event`
+- `closed_event`
 
-setter 端要記得每次狀態變更該 set/clear 哪些 event。
+它可以讓你「不會錯過某個狀態」，但代價是：setter 必須記得在對的時間 set/clear 所有 event。
 
-這種 bug 的特徵是：偶爾某個 waiter 卡死，因為你漏 set 了某個 event。
+我踩過幾次之後的結論是：event 不是解法，它是把複雜度推到更難 debug 的地方。
 
-## `asyncio.Condition`：看起來完美，但會有 lost update
+## 你真正想要的是「狀態轉換的事件流」
 
-`Condition` 長得很合理：
+Inngest 這篇文章寫得很清楚：問題核心是你等待的其實不是「當下的 state 值」，而是「某次 state transition 發生過」。
 
-```text
-await condition.wait_for(lambda: state == "closing")
-```
+他們最後做的 primitive 概念很簡單：
 
-問題在於它的保證其實是：
-- `notify_all()` 只是安排 waiters “之後醒來”
-- waiters 真正執行時，會用「**當下的 state**」重算 predicate
+- 每個等待者都有自己的 queue
+- 每次狀態改變，就把 `(old_state, new_state)` 丟進每個 queue
+- 等待者逐個消費，看到自己要的 `new_state` 才結束
 
-在單執行緒 event loop 裡，waiters 要等目前 coroutine yield 才會跑。
-
-所以你可能會遇到這種順序：
+從心智模型來看，這種 API 其實比較像：
 
 ```text
-await set_state("closing")  # notify_all() 只是排隊
-await set_state("closed")   # 在 waiters 真的跑之前又變了
-
-# waiter 真的醒來時看到的是 "closed"，predicate 失敗
-# 它又睡回去，然後永遠沒看過 "closing"。
+wait_for(target_state) -> 等到你「觀測到一次轉換」的 new_state == target_state
 ```
 
-這就是「lost update」：你等的是那個中間狀態，但 `Condition` 沒有幫你保留狀態轉換歷史。
+你會突然覺得「錯過 closing」這件事很荒謬，因為 closing 會被當成事件記錄下來，而不是靠讀最新值去推斷。
 
-## 真正的解法：不要只 wake，請「緩衝轉換」
+## 我的實務結論
 
-我覺得最直覺的修法是把它想成：
+如果你的 state machine 有「很重要的中間狀態」（不是裝飾性的），那 `Condition.wait_for(...)` 在 fast transition 情境下就是有風險，除非你能證明狀態不可能在同一個 event loop tick 裡連跳。
 
-- 每個 waiter 都訂閱一條“狀態轉換 stream”
-- 每次 state 改變，把 `(old_state, new_state)` 丟到每個 subscriber 的 queue
-- waiter 逐筆消化 transition，看到 `new_state == closing` 就 return
+一旦你開始有這些需求：
 
-概念上就是：
+- 轉換很快
+- 多個 consumer 各自等不同條件
+- cancellation / timeout
 
-```text
-ValueWatcher.wait_for(target_state) -> 當 transition 命中時回傳
-```
+我會更傾向做一個「watch transitions」的 abstraction（queue-per-watcher 或 async pub-sub），而不是繼續堆 Condition 然後祈禱。
 
-你不再是「醒來後看世界是不是我想要的樣子」，而是「我收到每一次改變，所以不會漏」。
-
-## 我的結論（有點煩但得承認）
-
-如果你的等待條件是「總之最後會變成 X」，`Condition.wait_for()` 通常 OK。
-
-但如果你要的是「**狀態曾經到過 X**（即使只有一下下）」，那你就要的是 **transition capture**，不是 wake-and-recheck。
-
-而且這種差別，真的不是看文件就能一秒悟到，通常是踩一次坑才會記得。
+這不是什麼新潮技術，但它至少可以保證：你寫的那段「closing 收尾」真的會跑。
 
 ---
 
 **References:**
-- [Inngest：asyncio 的 shared state 協調為什麼會漏（Condition 的 lost update 問題）](https://www.inngest.com/blog/no-lost-updates-python-asyncio)
-- [Python 官方文件：asyncio.Condition（wait/notify 的語意）](https://docs.python.org/3/library/asyncio-sync.html#condition)
+- [Inngest：What Python’s asyncio primitives get wrong about shared state](https://www.inngest.com/blog/no-lost-updates-python-asyncio)
+- [Python 文件：asyncio.Condition（wait_for）](https://docs.python.org/3/library/asyncio-sync.html#asyncio.Condition.wait_for)
