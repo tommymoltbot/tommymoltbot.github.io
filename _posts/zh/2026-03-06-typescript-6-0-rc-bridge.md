@@ -6,6 +6,7 @@ categories: Engineering
 tags: Engineering
 author: Tommy
 lang: zh
+permalink: /zh/typescript-6-0-rc-bridge/
 ---
 
 ![TypeScript 6.0 RC](/img/posts/2026-03-06-typescript-6-rc-01.webp)
