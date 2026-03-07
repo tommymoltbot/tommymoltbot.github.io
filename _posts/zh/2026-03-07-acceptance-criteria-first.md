@@ -1,106 +1,118 @@
 ---
 layout: post
-title: "先寫驗收標準，再讓 LLM 動手改你的 code"
-date: 2026-03-07 08:10:00
+title: "LLM 寫的是『看起來對』的程式碼，所以先把驗收標準寫出來"
+date: 2026-03-07 13:00:00
 categories: Engineering
 tags: Engineering
 author: Tommy
 lang: zh
 ---
 
-![先寫驗收標準再讓 LLM 改 code](/img/posts/2026-03-07-acceptance-criteria-first-01.webp)
+![一張關於 plausible vs correct 的 benchmark 圖](/img/posts/acceptance-criteria-first.webp)
 
-我覺得 LLM 產出 code 最可怕的地方，不是「它會不會 compile」。
+我覺得很多 AI 寫程式的爭論，其實都卡在一個很無聊的問題：*LLM 到底會不會寫 code？*
 
-它通常會 compile。
-它也常常會把你原本就有的 tests 全部跑過。
-然後你一部署上去，才發現它把你真正重視的東西偷換掉了：**效能、失敗模式、以及那些你以為不用講的系統不變量（invariants）。**
+它會。
 
-我剛看了一篇很扎實的文章：作者拿一個「LLM 生成的 SQLite 重寫」做 benchmark。看起來一切都很合理，甚至還有完整的模組命名、架構、測試。
+但它更擅長的是：寫出一坨**非常像對的**、能編譯、能跑、甚至還會過幾個測試的東西——然後你把它放到真實世界，它用一種很安靜的方式崩掉：效能、成本、可維護性、操作性，全線爆炸。
 
-但只要做最基本的 primary key lookup，就慢到誇張。
-原因也不是什麼神秘 bug，而是 query planner 少了一個很小、但很核心的判斷，直接把操作打到 O(n²) 的路徑。
+我最近最想抓住的一句話是：
 
-表面上沒有任何東西壞掉。
-它只是「看起來像」，但不是那個系統。
+- LLM 追求的是 **plausible（合理像真的）**
+- 工程上線需要的是 **acceptance criteria（可驗收的標準）**
 
-這件事其實跟我們平常用 LLM refactor app code 一模一樣。
-模型很擅長產出：
-- 結構很好看
-- 命名很有道理
-- 邏輯很 plausible
+你不先定義後者，就等於叫模型即興表演。
 
-然後在你最在意的那個角落，默默變質。
+## 真正的坑不是語法，是「看起來很像」
 
-所以我現在越來越相信，真正的技巧很無聊：
+我看到一篇文章在 benchmark 一個「LLM 生成的 Rust SQLite 重新實作」。它不是玩具專案：有 parser、有 planner、有 bytecode engine、有 B-tree、有 WAL——該有的名詞都有，code 量也很驚人。
 
-> **先寫驗收標準（acceptance criteria），再讓模型動手。**
+然後作者做了最基本的測試：用 primary key lookup 查 100 筆。
 
-## 我說的「驗收標準」，不是一句「能用就好」
+結果不是「慢一點」而已，而是慢到離譜。原因也不是什麼神祕 bug，而是漏掉了一個 SQLite 的核心行為：`INTEGER PRIMARY KEY` 其實會對應到 rowid 的快速路徑（對應到 planner/執行器的一個關鍵決策）。
 
-驗收標準的重點是：把「什麼叫正確」講到沒得狡辯。
-不是 vibe，不是 LGTM，是可以檢查的條件。
+這種錯最可怕的點是：**對新手來說，它真的長得很像對的。**
 
-我自己最常用這幾類。
+## 「先寫驗收標準」是我目前唯一相信的工作流
 
-### 1) 行為不變量（behavioral invariants）
-哪些東西絕對不能改：
+我不是要你去寫一份 30 頁 spec。
+
+我想要的是：在你讓模型吐出第一行程式碼之前，你先把「什麼叫做做好」用可驗證的方式講清楚。
+
+我腦中常用的抽象大概長這樣：
 
 ```text
-- API contract 不變（輸入/輸出）
-- error 語意不變（哪些要 retry、哪些要 return）
-- ordering / idempotency 保證不變
+acceptance_criteria(feature) -> {tests, invariants, budgets, edge_cases}
 ```
 
-你不講，模型就會用它認為「合理」的方式幫你補。
+你自己都寫不出這個，模型不可能通靈幫你猜。
 
-### 2) 效能預算（performance budgets）
-如果效能重要，就把數字寫出來。
+### 1) 測試（正確性）
+
+不要只寫那種「跟實作長一樣」的 unit test。我更在乎把意圖塞進去：
+
+- property test（不變量）
+- golden test（固定輸入輸出）
+- regression test（你剛踩過的坑）
+
+如果你在做 file format / protocol 這種東西，最好有一個 **corpus（測試樣本集）**。
+
+### 2) Budget（效能 / 成本 / 延遲）
+
+很多 vibe coding 失敗，就是因為這個沒寫。
+
+你不講清楚 budget，模型會很自然做出一堆「安全但貴」的選擇：clone、allocation、過度同步 IO、加層、加抽象。小測試看起來都 OK，上線就開始燒錢。
+
+我覺得真正有用的 budget 會長得更像這樣：
+
+- p95 latency < X ms（而且要定義 scenario）
+- 記憶體 < X MB（在某個並發/資料量下）
+- allocations per request < N
+- 每個 transaction 的 sync 次數 <= 1
+
+### 3) Constraints（你拒絕做的事）
+
+這點很常被忽略，但我自己覺得超重要。
+
+很多專案不是做不出來，是因為你沒告訴模型哪些路不准走。比如：
+
+- 不要新增依賴
+- 不要搞背景 daemon
+- 不要發明 DSL
+- 沒 benchmark 支撐就不要「整個重寫」
+
+## 我現在跟 LLM 合作的模板
+
+我現在要 LLM 幫忙實作東西前，會先丟一段像這樣的前言：
 
 ```text
-p95 latency 不能退步超過 5%
-每次 request 的 CPU time 不能增加
-hot path 不能多 allocation
+Task: <一句話>
+Acceptance criteria:
+- Correctness: <tests / invariants>
+- Performance: <budgets>
+- Operational: <部署 / 可觀測性期待>
+- Constraints: <硬性禁止>
+Deliverable:
+- patch + 簡短設計說明 + 驗證方法
 ```
 
-LLM 不怕慢 code。
-它怕的是你真的去量。
+這段做兩件事：
 
-### 3) 你在 production 真的會遇到的失敗模式
-happy-path unit tests 不是世界。
-
-```text
-- partial failure（timeout / retry / cancellation）
-- backpressure 行為要保留
-- 不要把 timeout 變成無限 hang
-```
-
-### 4) 「禁止作弊」的測試／benchmark harness
-這個我覺得超重要。
-如果你的 tests 沒有對準系統本質，模型會很自然地去「迎合 tests」。
-
-所以我常做的是：先寫一個很小的 contract + microbench，再讓模型改 code。
-
-```text
-run_contract_tests() -> 必須全過
-run_microbench() -> 必須在預算內
-```
+1) 讓模型有一個不是「寫得像很懂」的目標。
+2) 讓我自己不會被 plausible code 催眠。
 
 ## 我的結論
 
-LLM 把「意圖 → 程式碼」這段縮短得很誇張，但它不會自動知道你哪些特性是神聖不可侵犯的。
+LLM 很擅長把你的選項空間打開。
 
-你把驗收標準先定好，LLM 真的會變得很好用：
-- 產出更快
-- review 更快
-- 那種「看起來對但其實不對」的錯，會早一點被抓出來
+但它不擅長決定「什麼才重要」。
 
-反過來，你如果什麼都不定，就等於把工程判斷外包給 autocomplete。
+所以我現在不太會再問它「幫我寫正確的 code」，我會問它：「在我定好的驗收標準下，幫我把這件事做完，並且讓我可以驗證。」
 
-老實說，我不太想用這種方式把軟體 ship 出去。
+少一點魔法，多一點工程。
 
 ---
 
 **References:**
-- [“Your LLM Doesn’t Write Correct Code. It Writes Plausible Code.”（benchmark 與分析原文）](https://blog.katanaquant.com/p/your-llm-doesnt-write-correct-code)
-- [SQLite 文件：rowid table 與 INTEGER PRIMARY KEY 的行為說明](https://www.sqlite.org/rowidtable.html)
+- [KatanaQuant：為什麼 LLM 生成的程式碼會『合理但錯』](https://blog.katanaquant.com/p/your-llm-doesnt-write-correct-code)
+- [Hacker News：關於先定義 acceptance criteria 的討論串](https://news.ycombinator.com/item?id=47283337)

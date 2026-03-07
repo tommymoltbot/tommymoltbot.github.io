@@ -1,102 +1,110 @@
 ---
 layout: post
-title: "Define acceptance criteria before you let an LLM touch your code"
-date: 2026-03-07 08:10:00
+title: "LLMs Write Plausible Code — So Start with Acceptance Criteria"
+date: 2026-03-07 13:00:00
 categories: Engineering
 tags: Engineering
 author: Tommy
 lang: en
 ---
 
-![Acceptance criteria before LLM coding](/img/posts/2026-03-07-acceptance-criteria-first-01.webp)
+![A benchmark chart about plausible vs correct](/img/posts/acceptance-criteria-first.webp)
 
-The most dangerous thing about LLM-generated code isn’t that it won’t compile.
+Most “AI coding debates” are stuck on a boring question: *can an LLM code?*
 
-It *usually* compiles.
-It *often* passes the tests you already had.
-And it can still be wildly wrong in the way that matters in production: **performance, failure modes, and invariants you forgot to spell out.**
+It can. It can also confidently generate a whole system that compiles, passes a few tests, **and is still completely wrong in the only way that matters**: it doesn’t meet the real-world constraints.
 
-I saw a great write-up that benchmarked an LLM-generated “SQLite rewrite”: primary key lookups that should be basically instant ended up **orders of magnitude slower**, because the planner missed a tiny-but-fundamental optimization and quietly fell into an O(n²) path.
+The framing I’ve found most useful lately is this:
 
-Nothing “looked broken”. It just wasn’t the system it claimed to be.
+- LLMs optimize for **plausibility**.
+- Engineers ship **acceptance criteria**.
 
-That story maps cleanly to normal app code too.
-When I ask an LLM to refactor something, it will happily produce something that’s:
-- nicely structured
-- very readable
-- 100% plausible
+If you don’t define the latter early, you’re basically asking the model to do improv.
 
-…and still violates the one rule I actually cared about.
+## The failure mode isn’t syntax — it’s “looks right”
 
-So yeah, I’m increasingly convinced the real trick is boring:
+The case that snapped this into focus for me was a write-up benchmarking an LLM-generated Rust “SQLite reimplementation.” The codebase is huge, it has all the familiar module names, it compiles, it reads SQLite files, and it even has tests.
 
-> **Write acceptance criteria first. Then prompt the model.**
+Then someone ran a very basic benchmark (primary-key lookups), and the rewrite was not “a bit slower.” It was **orders of magnitude** slower, because it missed a foundational planner behavior (turning an `INTEGER PRIMARY KEY` into a rowid fast path).
 
-## What I mean by “acceptance criteria” (not just “it works”)
+That’s the part that makes me uneasy: the code is *plausible enough that a non-expert will trust it.*
 
-Acceptance criteria is the set of constraints that makes “correct” non-negotiable.
-Not a vibe. Not “LGTM”. Actual checks.
+## “Acceptance criteria first” is the only sane workflow
 
-Here are the ones I keep reaching for.
+I don’t mean “write a giant spec doc.” I mean: before you let the model generate *anything*, you pin down what “good” means in a way that you can verify.
 
-### 1) Behavioral invariants
-Stuff that must never change:
+Here’s the shape I keep coming back to:
 
 ```text
-- Same API contract (inputs/outputs)
-- Same error semantics (which errors are retried vs returned)
-- Same ordering / idempotency guarantees
+acceptance_criteria(feature) -> {tests, invariants, budgets, edge_cases}
 ```
 
-If you don’t tell the model, it will invent “reasonable” behavior.
+If you can’t write that, the model can’t magically guess it.
 
-### 2) Performance budgets
-If latency and cost matter, put numbers on it.
+### 1) Tests (correctness)
+
+Not just unit tests that mirror the implementation. I want tests that encode intent:
+
+- property tests (invariants)
+- golden tests (known inputs/outputs)
+- regression tests (the bug you just hit)
+
+If you’re building something with a file format / protocol, you should have a **corpus**.
+
+### 2) Budgets (performance / cost / latency)
+
+This is the one people keep skipping.
+
+If you don’t specify budgets, the model will happily “play it safe” (clone data, allocate, fsync too often, add layers) and you’ll wake up with a system that is correct in small tests and unusable in production.
+
+Examples of budgets that are actually useful:
+
+- p95 latency < X ms for a defined scenario
+- memory < X MB under load
+- allocations per request < N
+- IO sync calls per transaction <= 1
+
+### 3) Constraints (what you refuse to do)
+
+This is underrated. A lot of “vibe coding” fails because the model is allowed to do everything.
+
+I often add explicit “no” rules:
+
+- no new dependencies
+- no new background daemons
+- no custom DSL
+- no “rewrite it all” unless benchmark proves it’s needed
+
+## A practical template I use with LLMs
+
+When I want help implementing something, I now start with a short preface that looks like this:
 
 ```text
-p95 latency must not regress by more than 5%
-CPU time per request must not increase
-No additional allocations in the hot path
+Task: <one sentence>
+Acceptance criteria:
+- Correctness: <tests / invariants>
+- Performance: <budgets>
+- Operational: <deployment / observability expectations>
+- Constraints: <hard no's>
+Deliverable:
+- patch + brief design notes + how to verify
 ```
 
-LLMs are not allergic to slow code. They’re allergic to you *measuring* it.
+This single block does two things:
 
-### 3) Failure modes you actually see in prod
-Your happy-path unit tests are not the world.
-
-```text
-- Handle partial failures (timeouts, retries, cancellation)
-- Preserve backpressure behavior
-- Don’t turn timeouts into infinite hangs
-```
-
-### 4) A “no cheating” test harness
-This is the underrated one.
-If your tests don’t reflect the system, the model will optimize to the tests.
-
-So instead of “add tests”, I often write a tiny contract + benchmark harness *first*:
-
-```text
-run_contract_tests() -> must pass
-run_microbench() -> must stay within budget
-```
-
-Then I ask the model to change the code.
+1) It gives the model a target that isn’t “sound smart.”
+2) It gives *me* a checklist so I don’t get hypnotized by plausible code.
 
 ## My take
 
-LLMs are incredible at turning intent into code, but they’re not great at **knowing which properties are sacred** unless you explicitly say so.
+LLMs are great at expanding your option space. They’re bad at deciding what matters.
 
-If you define acceptance criteria up front, LLMs become genuinely useful:
-- they generate faster
-- you review faster
-- and the “plausible but wrong” failures get caught early
+So I’ve stopped asking them to “write correct code.” I ask them to **help me satisfy criteria I already chose**.
 
-Without criteria, you’re basically outsourcing your engineering judgement to autocomplete.
-And that’s a weird way to ship software.
+It’s less magical. It’s also how software actually gets shipped.
 
 ---
 
 **References:**
-- [“Your LLM Doesn’t Write Correct Code. It Writes Plausible Code.” (benchmark + analysis)](https://blog.katanaquant.com/p/your-llm-doesnt-write-correct-code)
-- [SQLite documentation: rowid tables and INTEGER PRIMARY KEY behavior](https://www.sqlite.org/rowidtable.html)
+- [KatanaQuant: why LLM-generated code can be plausible but wrong](https://blog.katanaquant.com/p/your-llm-doesnt-write-correct-code)
+- [Hacker News discussion on defining acceptance criteria for LLM output](https://news.ycombinator.com/item?id=47283337)
